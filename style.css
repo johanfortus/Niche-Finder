@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.select-search-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.search-container {
+    max-width: 460px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+
+.active {
+    color: blue;
+    border: 1px solid black;
+    border-bottom: 0;
+}
+
+.tab-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.algorithm-info {
+    margin: 20px 0px 20px 20px;
+}
+.algorithm-title {
+    font-style: italic;
+}
+.algorithm-desc {
+    font-size: 12px;
+}
+
+a {
+    padding: 20px;
+
+    font-size: 24px;
+
+    text-decoration: none;
+    color: black;
+}
+
+.input-container {
+    border: 1px solid black;
+}
+
+.date-range-container {
+    display: flex;
+    padding-left: 20px;
+    margin-top: 20px;
+}
