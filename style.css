@@ -33,7 +33,7 @@
 }
 
 .algorithm-info {
-    margin: 20px 0px 20px 20px;
+    margin-bottom: 20px;
 }
 .algorithm-title {
     font-style: italic;
@@ -42,21 +42,65 @@
     font-size: 12px;
 }
 
+
 a {
     padding: 20px;
-
     font-size: 24px;
-
     text-decoration: none;
     color: black;
 }
 
+input {
+    width: 100%;
+}
+textarea {
+    width: 100%;
+    resize: none;
+}
+
+select {
+    width: 100%;
+}
+
 .input-container {
+    padding: 20px;
     border: 1px solid black;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+}
+.submit-btn {
+    font-size: 14px;
+    padding: 5px 10px 5px 10px;
 }
 
 .date-range-container {
     display: flex;
     padding-left: 20px;
     margin-top: 20px;
+}
+
+.tag-container {
+    width: 100%;
+    display: flex;
+}
+
+.left-col {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.right-col {
+    display: flex;
+    margin-bottom: 20px;
+}
+.tag-container {
+    border: 1px solid gray;
+    padding-bottom: 0.1px;
+    border-radius: 3px;
+}
+.tag-input {
+    outline: none;
+    border: none;
 }
