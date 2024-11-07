@@ -6,6 +6,7 @@ let tabOne = document.querySelector(".tab-one");
 let tabTwo = document.querySelector(".tab-two");
 
 let tagContainer = document.querySelector(".tag-container");
+let tagInputContainer = document.querySelector(".tag-input-container");
 let tagInput = document.querySelector(".tag-input");
 let tagHead = document.querySelector(".tag-header");
 let tagField = document.querySelector(".tag-field");
@@ -44,7 +45,24 @@ tabTwo.addEventListener("click", (e) => {
 tagInput.addEventListener("keyup", (e) => {
     if(e.key === "Enter" || e.key === " ") {
         tags.push(tagInput.value.trim());        
+        
+        let newTag = document.createElement("span");
+        newTag.setAttribute("class", "added-tag");
+        newTag.innerText = tagInput.value;
+        
+        deleteTagBtn = document.createElement("button");
+        deleteTagBtn.innerText = "x";
+        deleteTagBtn.setAttribute("class", "delete-tag-btn");
+        newTag.append(deleteTagBtn);
+        
+        // https://stackoverflow.com/questions/46188263/how-to-append-an-element-before-another-using-javascript
+        tagContainer.insertBefore(newTag, tagInput);
+        
+        
         tagInput.value = "";
+
+
+
         console.log(tags)
     }
 })
