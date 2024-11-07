@@ -126,3 +126,7 @@ select {
 .delete-tag-btn:hover {
     cursor: pointer;
 }
+
+.tag-section-invisible {
+    display: none;
+}
