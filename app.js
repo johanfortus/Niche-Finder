@@ -71,8 +71,10 @@ tagContainer.addEventListener("click", (e) => {
     if(e.target.tagName === "BUTTON") {
         let removedTag = e.target.parentElement.innerText;
         removedTag = removedTag.slice(0, removedTag.length - 1).trim();
-        console.log(removedTag)
-        console.log(tags.indexOf(removedTag));
+        
+        let idx = tags.indexOf(removedTag);
+        tags.splice(idx, 1);
         console.log(tags);
+        e.target.parentElement.remove();
     }
 })
