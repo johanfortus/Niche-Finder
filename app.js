@@ -5,9 +5,12 @@ let algoDesc = document.querySelector(".algorithm-desc");
 let tabOne = document.querySelector(".tab-one");
 let tabTwo = document.querySelector(".tab-two");
 
+let tagContainer = document.querySelector(".tag-container");
 let tagInput = document.querySelector(".tag-input");
 let tagHead = document.querySelector(".tag-header");
 let tagField = document.querySelector(".tag-field");
+
+let tags = [];
 
 tabOne.addEventListener("click", (e) => {
     e.preventDefault();
@@ -35,6 +38,14 @@ tabTwo.addEventListener("click", (e) => {
 
         algoTitle.innerText = "Apriori Algorithm";
         algoDesc.innerText = "A machine learning algorithm to identify relationships between items by identifying frequent itemsets.";
+    }
+})
+
+tagInput.addEventListener("keyup", (e) => {
+    if(e.key === "Enter") {
+        tags.push(tagInput.value);
+        tagInput.value = "";
+        console.log(tags)
     }
 })
 
