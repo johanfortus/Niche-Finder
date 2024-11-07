@@ -85,6 +85,7 @@ select {
 .tag-container {
     width: 100%;
     display: flex;
+    font-size: 12px;
 }
 
 .left-col {
@@ -103,4 +104,25 @@ select {
 .tag-input {
     outline: none;
     border: none;
+}
+
+.added-tag {
+    display: flex;
+    font-size: 13px;
+    padding-left: 5px;
+    color: white;
+    background-color: red;
+    margin: 1px;
+    border-radius: 2px;
+}
+.delete-tag-btn {
+    color: grey;
+    font-size: 8px;
+    margin-top: 3px;
+    padding: 0px 5px 0px 5px;
+    color: white;
+}
+
+.delete-tag-btn:hover {
+    cursor: pointer;
 }
