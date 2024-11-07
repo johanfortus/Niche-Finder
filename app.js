@@ -56,7 +56,7 @@ tagInput.addEventListener("keyup", (e) => {
         newTag.append(deleteTagBtn);
         
         // https://stackoverflow.com/questions/46188263/how-to-append-an-element-before-another-using-javascript
-        tagContainer.insertBefore(newTag, tagInput);
+        tagContainer.insertBefore(newTag, tagInputContainer);
         
         
         tagInput.value = "";

@@ -100,6 +100,8 @@ select {
     border: 1px solid gray;
     padding-bottom: 0.1px;
     border-radius: 3px;
+    display: flex;
+    flex-wrap: wrap;
 }
 .tag-input {
     outline: none;
