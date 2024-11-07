@@ -69,7 +69,10 @@ tagInput.addEventListener("keyup", (e) => {
 
 tagContainer.addEventListener("click", (e) => {
     if(e.target.tagName === "BUTTON") {
-        let removedTag = e.target.parentElement.innerText
-        console.log("Removed Tag:", removedTag.slice(0, removedTag.length - 1));
+        let removedTag = e.target.parentElement.innerText;
+        removedTag = removedTag.slice(0, removedTag.length - 1).trim();
+        console.log(removedTag)
+        console.log(tags.indexOf(removedTag));
+        console.log(tags);
     }
 })
