@@ -42,10 +42,13 @@ tabTwo.addEventListener("click", (e) => {
 })
 
 tagInput.addEventListener("keyup", (e) => {
-    if(e.key === "Enter") {
-        tags.push(tagInput.value);
+    if(e.key === "Enter" || e.key === " ") {
+        tags.push(tagInput.value.trim());        
         tagInput.value = "";
         console.log(tags)
     }
 })
 
+tagContainer.addEventListener("click", (e) => {
+    console.log(e.target.tagName)
+})

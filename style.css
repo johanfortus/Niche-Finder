@@ -114,9 +114,11 @@ select {
     background-color: red;
     margin: 1px;
     border-radius: 2px;
+
 }
 .delete-tag-btn {
-    color: grey;
+    background-color: red;
+    border: none;
     font-size: 8px;
     margin-top: 3px;
     padding: 0px 5px 0px 5px;
