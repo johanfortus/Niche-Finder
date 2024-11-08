@@ -43,7 +43,8 @@ tabTwo.addEventListener("click", (e) => {
 })
 
 tagInput.addEventListener("keyup", (e) => {
-    if(e.key === "Enter" || e.key === " ") {
+    // if(e.key === "Enter" || e.key === " ") {
+    if(e.key === "Enter") {
         tags.push(tagInput.value.trim());        
         
         let newTag = document.createElement("span");
@@ -58,12 +59,17 @@ tagInput.addEventListener("keyup", (e) => {
         // https://stackoverflow.com/questions/46188263/how-to-append-an-element-before-another-using-javascript
         tagContainer.insertBefore(newTag, tagInputContainer);
         
-        
         tagInput.value = "";
 
-
-
-        console.log(tags)
+        console.log(tags);
+    }
+    
+    if(e.key === "Backspace") {
+        if(tagInputContainer.previousElementSibling) {
+            tagInputContainer.previousElementSibling.remove();
+            tags.pop();
+            console.log(tags);
+        }
     }
 })
 
@@ -74,7 +80,10 @@ tagContainer.addEventListener("click", (e) => {
         
         let idx = tags.indexOf(removedTag);
         tags.splice(idx, 1);
-        console.log(tags);
+        
         e.target.parentElement.remove();
+        console.log(tags);
     }
 })
+
+
