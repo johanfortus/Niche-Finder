@@ -64,8 +64,10 @@ tagInput.addEventListener("keyup", (e) => {
         console.log(tags);
     }
     
-    if(e.key === "Backspace") {
+
+    if(e.key === "Backspace" && tagInput.value === "") {
         if(tagInputContainer.previousElementSibling) {
+            console.log(tagInput.value)
             tagInputContainer.previousElementSibling.remove();
             tags.pop();
             console.log(tags);
@@ -85,5 +87,3 @@ tagContainer.addEventListener("click", (e) => {
         console.log(tags);
     }
 })
-
-
