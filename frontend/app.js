@@ -63,8 +63,9 @@ tagInput.addEventListener("keyup", (e) => {
 
         console.log(tags);
     }
-    
+})
 
+tagInput.addEventListener("keydown", (e) => {
     if(e.key === "Backspace" && tagInput.value === "") {
         if(tagInputContainer.previousElementSibling) {
             console.log(tagInput.value)
