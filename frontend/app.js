@@ -48,8 +48,8 @@ tabOne.addEventListener('click', (e) => {
         });
 
         if (tabSlider.classList[1] !== 'tab-slider-default') {
-            tabSlider.classList.toggle("tab-slider-one");
-            tabSlider.classList.toggle("tab-slider-two");
+            tabSlider.classList.toggle('tab-slider-one');
+            tabSlider.classList.toggle('tab-slider-two');
         }
 
         algoTitle.innerText = 'K-3 Means Search Algorithm';
@@ -80,12 +80,12 @@ tabTwo.addEventListener('click', (e) => {
         });
 
         if (tabSlider.classList[1] === 'tab-slider-default') {
-            tabSlider.classList.remove("tab-slider-default");
-            tabSlider.classList.add("tab-slider-two");
+            tabSlider.classList.remove('tab-slider-default');
+            tabSlider.classList.add('tab-slider-two');
         }
         else {
-            tabSlider.classList.toggle("tab-slider-one");
-            tabSlider.classList.toggle("tab-slider-two");
+            tabSlider.classList.toggle('tab-slider-one');
+            tabSlider.classList.toggle('tab-slider-two');
         }
 
         algoTitle.innerText = 'Apriori Algorithm';
