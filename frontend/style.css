@@ -27,6 +27,31 @@
     border-bottom: 0;
 }
 
+/* .active {
+    color: white;
+    border-bottom: 0;
+} */
+
+.selected-tab-one-default {
+    position: relative;
+    background-color: black;
+    margin-top: 5px;
+    height: 60px;
+    width: 200px;
+    border-radius: 240px;
+    z-index: -1;
+}
+
+.selected-tab-two {
+    position: relative;
+    background-color: black;
+    margin-top: 5px;
+    height: 60px;
+    width: 200px;
+    border-radius: 240px;
+    z-index: -1;
+}
+
 .tab-wrapper {
     display: flex;
     justify-content: space-between;
