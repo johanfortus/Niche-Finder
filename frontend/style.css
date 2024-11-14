@@ -105,6 +105,8 @@
 }
 .algorithm-title {
     font-style: italic;
+    font-size: 14px;
+    padding-bottom: 1%;
 }
 .algorithm-desc {
     font-size: 12px;
@@ -135,6 +137,7 @@ select {
     padding: 20px;
     border: 1px solid black;
     height: 300px;
+    border-radius: 30px;
 }
 
 .btn-container {
