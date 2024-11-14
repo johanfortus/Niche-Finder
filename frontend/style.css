@@ -164,6 +164,20 @@ select {
     background-color: white;
 }
 
+/* scrollbar animations https://www.youtube.com/watch?v=lvKK2fs6h4I */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
+}
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin-block: 2em;
+}
+::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 20px;
+}
+
 .btn-container {
     display: flex;
     justify-content: center;
