@@ -1,14 +1,14 @@
 // Algorithm Information
+let algoInfoContainer = document.querySelector('.algorithm-info');
 let algoTitle = document.querySelector('.algorithm-title');
 let algoDesc = document.querySelector('.algorithm-desc');
 
 
-// Menu Tabs
+// Menu Tabs, Search Attribute Container, Columns
 let tabOne = document.querySelector('.tab-one');
 let tabTwo = document.querySelector('.tab-two');
 let tabSlider = document.querySelector('.tab-slider');
-
-// Menu Columns
+let searchAttributeContainer = document.querySelector('.search-attributes-container');
 let leftCol = document.querySelectorAll('#left-col');
 let rightCol = document.querySelectorAll('#right-col');
 
@@ -19,7 +19,10 @@ let tagInputContainer = document.querySelector('.tag-input-container');
 let tagInput = document.querySelector('.tag-input');
 let tagHead = document.querySelector('.tag-header');
 let tagField = document.querySelector('.tag-field');
-let tagSubmitBtn = document.querySelector('.tag-submit-btn');
+
+
+// Button Container
+let btnContainer = document.querySelector('.btn-container');
 
 
 // Array to store tags
@@ -30,30 +33,47 @@ let tags = [];
 tabOne.addEventListener('click', (e) => {
     e.preventDefault();
     if(tabOne.classList[1] !== 'active') {
+
+        // Set tabOne class to active
         tabOne.classList.toggle('active');
         tabTwo.classList.toggle('active');
 
-        // Make frequest tag search attributes invisible
-        tagHead.classList.toggle('tag-section-invisible');
-        tagField.classList.toggle('tag-section-invisible');
-
-        // Change margin bottom of search attributes
-        leftCol.forEach((val) => {
-            val.classList.toggle('left-col', 'left-col-tag-search');
-            val.classList.toggle('left-col-tag-search');
-        });
-        rightCol.forEach((val) => {
-            val.classList.toggle('right-col');
-            val.classList.toggle('right-col-tag-search');
-        });
-
+        // Tab Slide Animation
         if (tabSlider.classList[1] !== 'tab-slider-default') {
             tabSlider.classList.toggle('tab-slider-one');
             tabSlider.classList.toggle('tab-slider-two');
         }
 
-        algoTitle.innerText = 'K-3 Means Search Algorithm';
-        algoDesc.innerText = 'k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters.';
+        // Fade transition new content
+        btnContainer.classList.toggle('element-fade');
+        searchAttributeContainer.classList.toggle('element-fade');
+        algoInfoContainer.classList.toggle('element-fade');
+
+        // Delay content change until content has fully faded out
+        const timer = setTimeout(() => {
+            // Make frequest tag search attributes invisible
+            tagHead.classList.toggle('tag-section-invisible');
+            tagField.classList.toggle('tag-section-invisible');
+
+            // Change margin bottom of search attributes
+            leftCol.forEach((val) => {
+                val.classList.toggle('left-col', 'left-col-tag-search');
+                val.classList.toggle('left-col-tag-search');
+            });
+            rightCol.forEach((val) => {
+                val.classList.toggle('right-col');
+                val.classList.toggle('right-col-tag-search');
+            });
+
+            // Change algorithm title and description
+            algoTitle.innerText = 'K-3 Means Search Algorithm';
+            algoDesc.innerText = 'k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters.';
+            
+            // Remove fade class
+            btnContainer.classList.toggle('element-fade');
+            searchAttributeContainer.classList.toggle('element-fade');
+            algoInfoContainer.classList.toggle('element-fade');
+        }, 130);
     }
 })
 
@@ -62,23 +82,12 @@ tabOne.addEventListener('click', (e) => {
 tabTwo.addEventListener('click', (e) => {
     e.preventDefault();
     if (tabTwo.classList[1] !== 'active') {
+
+        // Set tabTwo class to active
         tabTwo.classList.toggle('active');
         tabOne.classList.toggle('active');
-
-        // Make frequest tag search attributes invisible
-        tagHead.classList.toggle('tag-section-invisible');
-        tagField.classList.toggle('tag-section-invisible');
-
-        // Change margin bottom of search attributes
-        leftCol.forEach((val) => {
-            val.classList.toggle('left-col');
-            val.classList.toggle('left-col-tag-search');
-        });
-        rightCol.forEach((val) => {
-            val.classList.toggle('right-col');
-            val.classList.toggle('right-col-tag-search');
-        });
-
+        
+        // Tab Slide Animation
         if (tabSlider.classList[1] === 'tab-slider-default') {
             tabSlider.classList.remove('tab-slider-default');
             tabSlider.classList.add('tab-slider-two');
@@ -88,8 +97,39 @@ tabTwo.addEventListener('click', (e) => {
             tabSlider.classList.toggle('tab-slider-two');
         }
 
-        algoTitle.innerText = 'Apriori Algorithm';
-        algoDesc.innerText = 'A machine learning algorithm to identify relationships between items by identifying frequent itemsets.';
+        // Fade transition new content
+        btnContainer.classList.toggle('element-fade');
+        searchAttributeContainer.classList.toggle('element-fade');
+        algoInfoContainer.classList.toggle('element-fade');
+        
+        // Delay content change until content has fully faded out
+        const timer = setTimeout(() => {
+
+            // Change margin bottom of search attributes
+            leftCol.forEach((val) => {
+                val.classList.toggle('left-col');
+                val.classList.toggle('left-col-tag-search');
+            });
+            rightCol.forEach((val) => {
+                val.classList.toggle('right-col');
+                val.classList.toggle('right-col-tag-search');
+            });
+
+            // Make frequest tag search attributes invisible
+            tagHead.classList.toggle('tag-section-invisible');
+            tagField.classList.toggle('tag-section-invisible');
+
+            // Change algorithm title and description
+            algoTitle.innerText = 'Apriori Algorithm';
+            algoDesc.innerText = 'A machine learning algorithm to identify relationships between items by identifying frequent itemsets.';
+
+            // Remove fade class
+            btnContainer.classList.toggle('element-fade');
+            searchAttributeContainer.classList.toggle('element-fade');
+            algoInfoContainer.classList.toggle('element-fade');
+        }, 130);
+
+
     }
 })
 

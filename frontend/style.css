@@ -55,7 +55,7 @@ body {
     height: 50px;
     border-radius: 240px;
     z-index: -1;
-    animation: moveLeft 1s;
+    animation: moveLeft 300ms;
     animation-fill-mode: forwards;
 }
 @keyframes moveLeft {
@@ -75,7 +75,7 @@ body {
     height: 50px;
     border-radius: 240px;
     z-index: -1;
-    animation: moveRight 1s;
+    animation: moveRight 300ms;
     animation-fill-mode: forwards;
 }
 @keyframes moveRight {
@@ -88,6 +88,29 @@ body {
         width: 210px;
     }
 }
+
+.element-fade {
+    opacity: 100;
+    animation: fadeOut 150ms forwards, fadeIn 150ms 150ms forwards;
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 
 
 .tab-wrapper {
