@@ -73,7 +73,7 @@ tabOne.addEventListener('click', (e) => {
             btnContainer.classList.toggle('element-fade');
             searchAttributeContainer.classList.toggle('element-fade');
             algoInfoContainer.classList.toggle('element-fade');
-        }, 130);
+        }, 200);
     }
 })
 
@@ -127,7 +127,7 @@ tabTwo.addEventListener('click', (e) => {
             btnContainer.classList.toggle('element-fade');
             searchAttributeContainer.classList.toggle('element-fade');
             algoInfoContainer.classList.toggle('element-fade');
-        }, 130);
+        }, 200);
 
 
     }

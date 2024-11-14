@@ -55,7 +55,7 @@ body {
     height: 50px;
     border-radius: 240px;
     z-index: -1;
-    animation: moveLeft 300ms;
+    animation: moveLeft 600ms;
     animation-fill-mode: forwards;
 }
 @keyframes moveLeft {
@@ -75,7 +75,7 @@ body {
     height: 50px;
     border-radius: 240px;
     z-index: -1;
-    animation: moveRight 300ms;
+    animation: moveRight 600ms;
     animation-fill-mode: forwards;
 }
 @keyframes moveRight {
@@ -91,7 +91,7 @@ body {
 
 .element-fade {
     opacity: 100;
-    animation: fadeOut 150ms forwards, fadeIn 150ms 150ms forwards;
+    animation: fadeOut 200ms forwards, fadeIn 200ms 200ms forwards;
 }
 @keyframes fadeOut {
     from {
