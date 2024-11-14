@@ -6,6 +6,7 @@ let algoDesc = document.querySelector('.algorithm-desc');
 // Menu Tabs
 let tabOne = document.querySelector('.tab-one');
 let tabTwo = document.querySelector('.tab-two');
+let tabSlider = document.querySelector('.tab-slider');
 
 // Menu Columns
 let leftCol = document.querySelectorAll('#left-col');
@@ -32,9 +33,11 @@ tabOne.addEventListener('click', (e) => {
         tabOne.classList.toggle('active');
         tabTwo.classList.toggle('active');
 
+        // Make frequest tag search attributes invisible
         tagHead.classList.toggle('tag-section-invisible');
         tagField.classList.toggle('tag-section-invisible');
 
+        // Change margin bottom of search attributes
         leftCol.forEach((val) => {
             val.classList.toggle('left-col', 'left-col-tag-search');
             val.classList.toggle('left-col-tag-search');
@@ -43,6 +46,11 @@ tabOne.addEventListener('click', (e) => {
             val.classList.toggle('right-col');
             val.classList.toggle('right-col-tag-search');
         });
+
+        if (tabSlider.classList[1] !== 'tab-slider-default') {
+            tabSlider.classList.toggle("tab-slider-default");
+            tabSlider.classList.toggle("tab-slider-two");
+        }
 
         algoTitle.innerText = 'K-3 Means Search Algorithm';
         algoDesc.innerText = 'k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters';
@@ -53,13 +61,15 @@ tabOne.addEventListener('click', (e) => {
 // When tab two (Frequent Tag Search) is active, all exclusve tag-search elements will be visible
 tabTwo.addEventListener('click', (e) => {
     e.preventDefault();
-    if(tabTwo.classList[1] !== 'active') {
+    if (tabTwo.classList[1] !== 'active') {
         tabTwo.classList.toggle('active');
         tabOne.classList.toggle('active');
 
+        // Make frequest tag search attributes invisible
         tagHead.classList.toggle('tag-section-invisible');
         tagField.classList.toggle('tag-section-invisible');
 
+        // Change margin bottom of search attributes
         leftCol.forEach((val) => {
             val.classList.toggle('left-col');
             val.classList.toggle('left-col-tag-search');
@@ -69,6 +79,15 @@ tabTwo.addEventListener('click', (e) => {
             val.classList.toggle('right-col-tag-search');
         });
 
+        if (tabSlider.classList[1] === 'tab-slider-default') {
+            tabSlider.classList.remove("tab-slider-default");
+            tabSlider.classList.add("tab-slider-two");
+        }
+        else {
+            tabSlider.classList.toggle("tab-slider-default");
+            tabSlider.classList.toggle("tab-slider-two");
+        }
+
         algoTitle.innerText = 'Apriori Algorithm';
         algoDesc.innerText = 'A machine learning algorithm to identify relationships between items by identifying frequent itemsets.';
     }
@@ -77,7 +96,7 @@ tabTwo.addEventListener('click', (e) => {
 
 // When user presses enter, add tag to array and frontend (added-tag class style) alongside 'x' button to remove tag
 tagInput.addEventListener('keyup', (e) => {
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter') {
         tags.push(tagInput.value.trim());        
         
         let newTag = document.createElement('span');
@@ -102,8 +121,8 @@ tagInput.addEventListener('keyup', (e) => {
 // Remove tags from frontend and tags array
 // Backspace a tag to remove it
 tagInput.addEventListener('keydown', (e) => {
-    if(e.key === 'Backspace' && tagInput.value === '') {
-        if(tagInputContainer.previousElementSibling) {
+    if (e.key === 'Backspace' && tagInput.value === '') {
+        if (tagInputContainer.previousElementSibling) {
             console.log(tagInput.value)
             tagInputContainer.previousElementSibling.remove();
             tags.pop();
@@ -115,7 +134,7 @@ tagInput.addEventListener('keydown', (e) => {
 
 // Click x next to a tag to remove it
 tagContainer.addEventListener('click', (e) => {
-    if(e.target.tagName === 'BUTTON') {
+    if (e.target.tagName === 'BUTTON') {
         let removedTag = e.target.parentElement.innerText;
         removedTag = removedTag.slice(0, removedTag.length - 1).trim();
         
