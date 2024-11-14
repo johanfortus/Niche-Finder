@@ -48,7 +48,7 @@ tabOne.addEventListener('click', (e) => {
         });
 
         if (tabSlider.classList[1] !== 'tab-slider-default') {
-            tabSlider.classList.toggle("tab-slider-default");
+            tabSlider.classList.toggle("tab-slider-one");
             tabSlider.classList.toggle("tab-slider-two");
         }
 
@@ -84,7 +84,7 @@ tabTwo.addEventListener('click', (e) => {
             tabSlider.classList.add("tab-slider-two");
         }
         else {
-            tabSlider.classList.toggle("tab-slider-default");
+            tabSlider.classList.toggle("tab-slider-one");
             tabSlider.classList.toggle("tab-slider-two");
         }
 
