@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: black;
+    background-color: #15191B;
 }
 
 .select-search-section {
@@ -102,6 +102,7 @@ body {
 .tab-wrapper {
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 10px;
 }
 
 .algorithm-info {
