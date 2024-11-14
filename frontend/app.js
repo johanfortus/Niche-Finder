@@ -1,72 +1,86 @@
+// Algorithm Information
+let algoTitle = document.querySelector('.algorithm-title');
+let algoDesc = document.querySelector('.algorithm-desc');
 
-let algoTitle = document.querySelector(".algorithm-title");
-let algoDesc = document.querySelector(".algorithm-desc");
 
-let tabOne = document.querySelector(".tab-one");
-let tabTwo = document.querySelector(".tab-two");
+// Menu Tabs
+let tabOne = document.querySelector('.tab-one');
+let tabTwo = document.querySelector('.tab-two');
 
-let tagContainer = document.querySelector(".tag-container");
-let tagInputContainer = document.querySelector(".tag-input-container");
-let tagInput = document.querySelector(".tag-input");
-let tagHead = document.querySelector(".tag-header");
-let tagField = document.querySelector(".tag-field");
 
+// Tag Search Elements
+let tagContainer = document.querySelector('.tag-container');
+let tagInputContainer = document.querySelector('.tag-input-container');
+let tagInput = document.querySelector('.tag-input');
+let tagHead = document.querySelector('.tag-header');
+let tagField = document.querySelector('.tag-field');
+let tagSubmitBtn = document.querySelector('.tag-submit-btn');
+
+
+// Array to store tags
 let tags = [];
 
-tabOne.addEventListener("click", (e) => {
+
+// When tab one (Video Grouping) is active, all exclusve tag-search elements will be be invisible
+tabOne.addEventListener('click', (e) => {
     e.preventDefault();
-    if(tabOne.classList[1] !== "active") {
-        tabOne.classList.toggle("active");
-        tabTwo.classList.toggle("active");
+    if(tabOne.classList[1] !== 'active') {
+        tabOne.classList.toggle('active');
+        tabTwo.classList.toggle('active');
 
-        tagHead.classList.toggle("tag-section-invisible");
-        tagField.classList.toggle("tag-section-invisible");
+        tagHead.classList.toggle('tag-section-invisible');
+        tagField.classList.toggle('tag-section-invisible');
 
-        algoTitle.innerText = "K-3 Means Search Algorithm";
-        algoDesc.innerText = "k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters";
+        algoTitle.innerText = 'K-3 Means Search Algorithm';
+        algoDesc.innerText = 'k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters';
     }
 })
 
-tabTwo.addEventListener("click", (e) => {
+
+// When tab two (Frequent Tag Search) is active, all exclusve tag-search elements will be visible
+tabTwo.addEventListener('click', (e) => {
     e.preventDefault();
-    if(tabTwo.classList[1] !== "active") {
-        tabTwo.classList.toggle("active");
-        tabOne.classList.toggle("active");
+    if(tabTwo.classList[1] !== 'active') {
+        tabTwo.classList.toggle('active');
+        tabOne.classList.toggle('active');
 
-        tagHead.classList.toggle("tag-section-invisible");
-        tagField.classList.toggle("tag-section-invisible");
+        tagHead.classList.toggle('tag-section-invisible');
+        tagField.classList.toggle('tag-section-invisible');
 
-
-        algoTitle.innerText = "Apriori Algorithm";
-        algoDesc.innerText = "A machine learning algorithm to identify relationships between items by identifying frequent itemsets.";
+        algoTitle.innerText = 'Apriori Algorithm';
+        algoDesc.innerText = 'A machine learning algorithm to identify relationships between items by identifying frequent itemsets.';
     }
 })
 
-tagInput.addEventListener("keyup", (e) => {
-    // if(e.key === "Enter" || e.key === " ") {
-    if(e.key === "Enter") {
+
+// When user presses enter, add tag to array and frontend (added-tag class style) alongside 'x' button to remove tag
+tagInput.addEventListener('keyup', (e) => {
+    if(e.key === 'Enter') {
         tags.push(tagInput.value.trim());        
         
-        let newTag = document.createElement("span");
-        newTag.setAttribute("class", "added-tag");
+        let newTag = document.createElement('span');
+        newTag.setAttribute('class', 'added-tag');
         newTag.innerText = tagInput.value;
         
-        deleteTagBtn = document.createElement("button");
-        deleteTagBtn.innerText = "x";
-        deleteTagBtn.setAttribute("class", "delete-tag-btn");
+        deleteTagBtn = document.createElement('button');
+        deleteTagBtn.innerText = 'x';
+        deleteTagBtn.setAttribute('class', 'delete-tag-btn');
         newTag.append(deleteTagBtn);
         
         // https://stackoverflow.com/questions/46188263/how-to-append-an-element-before-another-using-javascript
         tagContainer.insertBefore(newTag, tagInputContainer);
         
-        tagInput.value = "";
+        tagInput.value = '';
 
         console.log(tags);
     }
 })
 
-tagInput.addEventListener("keydown", (e) => {
-    if(e.key === "Backspace" && tagInput.value === "") {
+
+// Remove tags from frontend and tags array
+// Backspace a tag to remove it
+tagInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Backspace' && tagInput.value === '') {
         if(tagInputContainer.previousElementSibling) {
             console.log(tagInput.value)
             tagInputContainer.previousElementSibling.remove();
@@ -76,8 +90,10 @@ tagInput.addEventListener("keydown", (e) => {
     }
 })
 
-tagContainer.addEventListener("click", (e) => {
-    if(e.target.tagName === "BUTTON") {
+
+// Click x next to a tag to remove it
+tagContainer.addEventListener('click', (e) => {
+    if(e.target.tagName === 'BUTTON') {
         let removedTag = e.target.parentElement.innerText;
         removedTag = removedTag.slice(0, removedTag.length - 1).trim();
         
