@@ -159,6 +159,7 @@ select {
     padding: 20px;
     border: 1px solid black;
     height: 300px;
+    overflow: auto;
     border-radius: 30px;
     background-color: white;
 }
