@@ -182,9 +182,21 @@ select {
     display: flex;
     justify-content: center;
 }
-.submit-btn {
+/* .submit-btn {
     font-size: 14px;
     padding: 5px 10px 5px 10px;
+} */
+.submit-btn {
+    background-color: rgb(0, 128, 255);
+    color: white;
+    border: none;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.submit-btn:hover {
+    cursor: pointer;
+    background-color: rgb(0, 78, 156);  
 }
 
 .date-range-container {
