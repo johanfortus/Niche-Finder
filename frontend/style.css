@@ -33,7 +33,7 @@
 }
 
 .algorithm-info {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 .algorithm-title {
     font-style: italic;
@@ -65,6 +65,7 @@ select {
 .input-container {
     padding: 20px;
     border: 1px solid black;
+    height: 300px;
 }
 
 .btn-container {
@@ -90,12 +91,22 @@ select {
 
 .left-col {
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 .right-col {
     display: flex;
+    margin-bottom: 35px;
+}
+
+.left-col-tag-search {
+    font-weight: 600;
     margin-bottom: 20px;
 }
+.right-col-tag-search {
+    display: flex;
+    margin-bottom: 20px;
+}
+
 .tag-container {
     border: 1px solid gray;
     padding-bottom: 0.1px;
