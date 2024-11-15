@@ -1,3 +1,5 @@
+// app.js handles frontend interactivity (and adding to tags array)
+
 // Algorithm Information
 let algoInfoContainer = document.querySelector('.algorithm-info');
 let algoTitle = document.querySelector('.algorithm-title');
