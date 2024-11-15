@@ -54,11 +54,11 @@
 
                         <div style="width: 65%;">
                             <div id="right-col" class="right-col">
-                                <input type="date"> - <input type="date">
+                                <input name="start-date" type="date"> - <input name="end-date" type="date">
                             </div>
                             <div id="right-col" class="right-col">
                                 <!-- https://gist.github.com/psamaan/6187095 -->
-                                <select name="Country"> 
+                                <select name="country"> 
                                     <option value="" selected="selected">Select Country</option> 
                                     <option value="Afghanistan">Afghanistan</option> 
                                     <option value="Albania">Albania</option> 
@@ -306,7 +306,7 @@
                                 <!-- High Engagement (above 5%): 67-100 -->
                                 <!-- Medium Engagement (between 2% and 5%): 33-66 -->
                                 <!-- Low Engagement (between 0% and 2%): 0-32 -->
-                                <input class="engagement-range" type="range" name="" min="0" max="100">                             
+                                <input name="engagement" class="engagement-range" type="range" min="0" max="100">                             
                             </div>
                             <div id="right-col" class="right-col tag-field tag-section-invisible">
                                 <div class="tag-container input">
