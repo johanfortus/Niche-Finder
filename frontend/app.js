@@ -66,7 +66,7 @@ tabOne.addEventListener('click', (e) => {
             });
 
             // Change algorithm title and description
-            algoTitle.innerText = 'K-3 Means Search Algorithm';
+            algoTitle.innerText = 'K-Means Search Algorithm';
             algoDesc.innerText = 'k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters.';
             
             // Remove fade class
