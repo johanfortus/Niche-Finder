@@ -22,21 +22,12 @@ def result_page():
     print(f'{data} \n')
 
     search_type = data['searchType']
-    start_date = data['dateRange']['start']
-    end_date = data['dateRange']['end']
-    country = data['country']
-    engagement = data['engagement']
-    tags = data['tags']
 
     if search_type == 'k-means':
-        kmeans.run_kmeans(data)
+        kmeans.perform_kmeans(data)
+    elif search_type == 'apriori':
+        apriori.perform_apriori(data)
 
-    print(f'Search Type: {search_type} \n')
-    print(f'Start Date: {start_date} \n')
-    print(f'End Date: {end_date} \n')
-    print(f'Country: {country} \n')
-    print(f'Engagement: {engagement} \n')
-    print(f'Tags: {tags} \n')
 
 
     # print("search_type type: ", type(search_type))
