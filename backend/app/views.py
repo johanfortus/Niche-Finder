@@ -20,22 +20,25 @@ def result_page():
     data = request.get_json()
     print(f'{data} \n')
 
+    search_type = data['searchType']
     start_date = data['dateRange']['start']
     end_date = data['dateRange']['end']
     country = data['country']
     engagement = data['engagement']
     tags = data['tags']
     
+    print(f'Search Type: {search_type} \n')
     print(f'Start Date: {start_date} \n')
     print(f'End Date: {end_date} \n')
     print(f'Country: {country} \n')
     print(f'Engagement: {engagement} \n')
     print(f'Tags: {tags} \n')
 
-    print("start_date type: ", type(start_date))
-    print("end_date type: ",type(end_date))
-    print("country type: ",type(country))
-    print("engagement type: ",type(engagement))
-    print("tags type: ",type(tags))
+    # print("search_type type: ", type(search_type))
+    # print("start_date type: ", type(start_date))
+    # print("end_date type: ",type(end_date))
+    # print("country type: ",type(country))
+    # print("engagement type: ",type(engagement))
+    # print("tags type: ",type(tags))
 
     return jsonify(data)
