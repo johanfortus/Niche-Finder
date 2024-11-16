@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, Blueprint
+from flask import render_template, redirect, request, Blueprint, jsonify
 
 views = Blueprint('views', __name__)
 
@@ -18,10 +18,24 @@ def home_page():
 @views.route('/result', methods = ['POST'])
 def result_page():
     data = request.get_json()
+    print(f'{data} \n')
+
     start_date = data['dateRange']['start']
     end_date = data['dateRange']['end']
     country = data['country']
     engagement = data['engagement']
+    tags = data['tags']
+    
+    print(f'Start Date: {start_date} \n')
+    print(f'End Date: {end_date} \n')
+    print(f'Country: {country} \n')
+    print(f'Engagement: {engagement} \n')
+    print(f'Tags: {tags} \n')
 
-    return render_template('result.html' , start_date=start_date, end_date=end_date, country=country, engagement=engagement)
+    print("start_date type: ", type(start_date))
+    print("end_date type: ",type(end_date))
+    print("country type: ",type(country))
+    print("engagement type: ",type(engagement))
+    print("tags type: ",type(tags))
 
+    return jsonify(data)

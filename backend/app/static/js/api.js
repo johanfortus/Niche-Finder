@@ -9,26 +9,36 @@ let engagementInput = document.querySelector('.engagement-range');
 let tags = [];
 
 form.addEventListener('submit', async (e) => {
-
-    let dateRange = {start: startDateInput.value, end: endDateInput.value};
+    e.preventDefault();
+    
+    let dateRange = {'start': startDateInput.value, 'end': endDateInput.value};
     let country = countryInput.value;
     let engagement = engagementInput.value;
 
     try {
-        let res = await axios.post('/result', {
-            'dateRange': dateRange,
-            'country': country,
-            'engagement': engagement,
-            'tags': tags
-        }, {
-            'headers': {
-                'content-type' : 'application/json'
+        let res = await axios.post('/result', 
+            {
+                dateRange,
+                country,
+                engagement,
+                tags
+            }, 
+            
+            {
+                'headers': {
+                    'Content-Type' : 'application/json'
+                }
             }
-        })
-        
+        );
+
+        console.log(res.data);
     }
+    
     catch(error) {
         console.log(error);
     }
+
+    
+
 })
 
