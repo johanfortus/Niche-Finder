@@ -27,10 +27,6 @@ let tagField = document.querySelector('.tag-field');
 let btnContainer = document.querySelector('.btn-container');
 
 
-// Array to store tags
-let tags = [];
-
-
 // When tab one (Video Grouping) is active, all exclusve tag-search elements will be be invisible
 tabOne.addEventListener('click', (e) => {
     e.preventDefault();
