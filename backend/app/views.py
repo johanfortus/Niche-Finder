@@ -7,34 +7,24 @@ views = Blueprint('views', __name__)
 def home_page():
     return render_template('home.html')
 
-# @views.route('/result', methods = ['POST'])
-# def result_page():
-#     start_date = request.form['startDate']
-#     end_date = request.form['endDate']
-#     country = request.form['country']
-#     engagement = request.form['engagementRange']
-
-#     return render_template('result.html' , start_date=start_date, end_date=end_date, country=country, engagement=engagement)
 
 @views.route('/result', methods = ['POST'])
 def result_page():
+
     data = request.get_json()
     print(f'{data} \n')
 
-    search_type = data['searchType']
+    search_type:str = data['searchType']
+
+    start_date: str = data['dateRange']['start']
+    end_date: str = data['dateRange']['end']
+    country: str = data['country']
+    engagement: str = data['engagement']
+    tags: list = data['tags']
 
     if search_type == 'k-means':
         kmeans.perform_kmeans(data)
     elif search_type == 'apriori':
         apriori.perform_apriori(data)
-
-
-
-    # print("search_type type: ", type(search_type))
-    # print("start_date type: ", type(start_date))
-    # print("end_date type: ",type(end_date))
-    # print("country type: ",type(country))
-    # print("engagement type: ",type(engagement))
-    # print("tags type: ",type(tags))
 
     return jsonify(data)
