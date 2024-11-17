@@ -1,38 +1,29 @@
 // app.js handles frontend interactivity (and adding to tags array)
 
-// Algorithm Information
+// Frontend Elements
 let algoInfoContainer = document.querySelector('.algorithm-info');
 let algoTitle = document.querySelector('.algorithm-title');
 let algoDesc = document.querySelector('.algorithm-desc');
 
-
-// Menu Tabs, Search Attribute Container, Columns
 let tabOne = document.querySelector('.tab-one');
 let tabTwo = document.querySelector('.tab-two');
 let tabSlider = document.querySelector('.tab-slider');
 let searchAttributeContainer = document.querySelector('.search-attributes-container');
-let leftCol = document.querySelectorAll('#left-col');
-let rightCol = document.querySelectorAll('#right-col');
+let leftCol = document.querySelectorAll('.left-col');
+let rightCol = document.querySelectorAll('.right-col');
 
-
-// Tag Search Elements
 let tagContainer = document.querySelector('.tag-container');
 let tagInputContainer = document.querySelector('.tag-input-container');
 let tagInput = document.querySelector('.tag-input');
 let tagHead = document.querySelector('.tag-header');
 let tagField = document.querySelector('.tag-field');
 
-
-// Button Container
 let btnContainer = document.querySelector('.btn-container');
-
 
 // When tab one (Video Grouping) is active, all exclusve tag-search elements will be be invisible
 tabOne.addEventListener('click', (e) => {
     e.preventDefault();
     if(tabOne.classList[1] !== 'active') {
-
-        // Set tabOne class to active
         tabOne.classList.toggle('active');
         tabTwo.classList.toggle('active');
 
