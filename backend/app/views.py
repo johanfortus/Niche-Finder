@@ -23,8 +23,8 @@ def result_page():
     tags: list = data['tags']
 
     if search_type == 'k-means':
-        kmeans.perform_kmeans(data)
+        kmeans.perform_kmeans(start_date, end_date, country, engagement)
     elif search_type == 'apriori':
-        apriori.perform_apriori(data)
+        apriori.perform_apriori(start_date, end_date, country, engagement, tags)
 
     return jsonify(data)

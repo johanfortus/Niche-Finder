@@ -1,8 +1,3 @@
-def perform_apriori(data):
+def perform_apriori(start_date, end_date, country, engagement, tags):
     print('PERFORMING APRIORI')
     print('------------------')
-    start_date = data['dateRange']['start']
-    end_date = data['dateRange']['end']
-    country = data['country']
-    engagement = data['engagement']
-    tags = data['tags']
