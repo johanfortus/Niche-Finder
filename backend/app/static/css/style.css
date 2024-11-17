@@ -267,3 +267,8 @@ select {
 .tag-section-invisible {
     display: none;
 }
+
+.search-attributes-container {
+    display: flex;
+    flex-direction: row;
+}

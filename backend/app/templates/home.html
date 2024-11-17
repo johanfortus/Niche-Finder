@@ -4,28 +4,21 @@
 
 <section class="select-search-section">
     <h2 class="select-search-header">Select Search Algorithm</h2>
-
     <div class="search-container">
         <div class="row">
             <div class="tab-wrapper">
                 <a class="tab-one active" href="#">Video Grouping</a>
-                
                 <div style="position: absolute;">
                     <div class="tab-slider tab-slider-default"></div>
-                    <!-- <div class="selected-tab-two"></div> -->
                 </div>
-                
                 <a class="tab-two" href="#">Frequent Tag Search</a>
             </div>
             <div class="input-container">
-
                 <div class="algorithm-info">
                     <p class="algorithm-title">K-Means Search Algorithm</p>
                     <p class="algorithm-desc">k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters.</p>
                 </div>
-
-                <div class="search-attributes-container" style="display: flex; flex-direction: row;">
-
+                <div class="search-attributes-container">
                     <div style="width: 35%;">
                         <div class="left-col">
                             <h4>Date Range:</h4>
@@ -36,57 +29,41 @@
                         <div class="left-col">
                             <h4>Engagement:</h4>
                         </div>
-
                         <div class="left-col tag-header tag-section-invisible">
                             <h4>Tags:</h4>
                         </div>
-
                     </div>
-                    
                     <form onkeydown="return event.key != 'Enter';" style="width: 65%;">
-                    <div>
-                        <div id="right-col" class="right-col">
-                            <input name="startDate" class="start-date" type="date"> - <input name="endDate" class="end-date" type="date">
-                        </div>
-                        <div id="right-col" class="right-col">
-                            <!-- https://gist.github.com/psamaan/6187095 -->
-                            <select name="country" class="country"> 
-                                <option value="" selected="selected">Select Country</option> 
-                                {% for country in countries %}
-                                <option value="{{ country }}">{{ country }}</option>
-                                {% endfor %}
-                                </select>
-                        </div>
-                        <div id="right-col" class="right-col">
-                            
-                            <!-- High Engagement (above 5%): 67-100 -->
-                            <!-- Medium Engagement (between 2% and 5%): 33-66 -->
-                            <!-- Low Engagement (between 0% and 2%): 0-32 -->
-                            <input name="engagementRange" class="engagement-range" type="range" min="0" max="100">                             
-                        </div>
-                        <div id="right-col" class="right-col tag-field tag-section-invisible">
-                            <div class="tag-container input">
-            
-                                <span class="tag-input-container"><input class="tag-input" type="text"></span>
-                                <!-- <input class="tag-input" type="text"> -->
-                                <!-- <textarea name="" id="" class="tag-input"></textarea> -->
+                        <div>
+                            <div id="right-col" class="right-col">
+                                <input name="startDate" class="start-date" type="date"> - <input name="endDate" class="end-date" type="date">
+                            </div>
+                            <div id="right-col" class="right-col">
+                                <!-- https://gist.github.com/psamaan/6187095 -->
+                                <select name="country" class="country"> 
+                                    <option value="" selected="selected">Select Country</option> 
+                                    {% for country in countries %}
+                                    <option value="{{ country }}">{{ country }}</option>
+                                    {% endfor %}
+                                    </select>
+                            </div>
+                            <div id="right-col" class="right-col">
+                                <input name="engagementRange" class="engagement-range" type="range" min="0" max="100">                             
+                            </div>
+                            <div id="right-col" class="right-col tag-field tag-section-invisible">
+                                <div class="tag-container input">
+                                    <span class="tag-input-container"><input class="tag-input" type="text"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-
-                </div>
-
-                <div class="btn-container">
-                    <button type="submit" class="submit-btn">Submit</button>
-                </div>
-                </form>
-
-                                    
+                    <div class="btn-container">
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </div>
+                </form>              
             </div>
         </div>
     </div>
-
 </section>
 
 {% endblock %}
