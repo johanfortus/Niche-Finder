@@ -40,14 +40,9 @@ form.addEventListener('submit', async (e) => {
                 }
             }
         );
-
         console.log(res.data);
     }
-    
     catch(error) {
         console.log(error);
     }
-
-    
-
 })

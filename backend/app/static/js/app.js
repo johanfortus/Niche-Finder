@@ -66,17 +66,14 @@ tabOne.addEventListener('click', (e) => {
     }
 })
 
-
-// When tab two (Frequent Tag Search) is active, all exclusve tag-search elements will be visible
+// Tab switching logic
 tabTwo.addEventListener('click', (e) => {
     e.preventDefault();
     if (tabTwo.classList[1] !== 'active') {
 
-        // Set tabTwo class to active
         tabTwo.classList.toggle('active');
         tabOne.classList.toggle('active');
         
-        // Tab Slide Animation
         if (tabSlider.classList[1] === 'tab-slider-default') {
             tabSlider.classList.remove('tab-slider-default');
             tabSlider.classList.add('tab-slider-two');
@@ -86,15 +83,12 @@ tabTwo.addEventListener('click', (e) => {
             tabSlider.classList.toggle('tab-slider-two');
         }
 
-        // Fade transition new content
         btnContainer.classList.toggle('element-fade');
         searchAttributeContainer.classList.toggle('element-fade');
         algoInfoContainer.classList.toggle('element-fade');
         
-        // Delay content change until content has fully faded out
         const timer = setTimeout(() => {
 
-            // Change margin bottom of search attributes
             leftCol.forEach((val) => {
                 val.classList.toggle('left-col');
                 val.classList.toggle('left-col-tag-search');
@@ -104,26 +98,19 @@ tabTwo.addEventListener('click', (e) => {
                 val.classList.toggle('right-col-tag-search');
             });
 
-            // Make frequest tag search attributes invisible
             tagHead.classList.toggle('tag-section-invisible');
             tagField.classList.toggle('tag-section-invisible');
 
-            // Change algorithm title and description
             algoTitle.innerText = 'Apriori Algorithm';
             algoDesc.innerText = 'A machine learning algorithm to identify relationships between items by identifying frequent itemsets.';
 
-            // Remove fade class
             btnContainer.classList.toggle('element-fade');
             searchAttributeContainer.classList.toggle('element-fade');
             algoInfoContainer.classList.toggle('element-fade');
         }, 200);
-
-
     }
 })
 
-
-// When user presses enter, add tag to array and frontend (added-tag class style) alongside 'x' button to remove tag
 tagInput.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
         tags.push(tagInput.value.trim());        
@@ -141,14 +128,11 @@ tagInput.addEventListener('keyup', (e) => {
         tagContainer.insertBefore(newTag, tagInputContainer);
         
         tagInput.value = '';
-
         console.log(tags);
     }
 })
 
-
-// Remove tags from frontend and tags array
-// Backspace a tag to remove it
+// Remove tag on backspace
 tagInput.addEventListener('keydown', (e) => {
     if (e.key === 'Backspace' && tagInput.value === '') {
         if (tagInputContainer.previousElementSibling) {
@@ -160,8 +144,7 @@ tagInput.addEventListener('keydown', (e) => {
     }
 })
 
-
-// Click x next to a tag to remove it
+// Remove tag on x button clicked
 tagContainer.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         let removedTag = e.target.parentElement.innerText;
