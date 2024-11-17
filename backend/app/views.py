@@ -8,7 +8,6 @@ views = Blueprint('views', __name__)
 def home_page():
     return render_template('home.html', countries=COUNTRIES)
 
-
 @views.route('/result', methods = ['POST'])
 def result_page():
 
