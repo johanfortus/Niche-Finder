@@ -1,9 +1,19 @@
 from sklearn.cluster import KMeans
 import pandas as pd
+import kagglehub
+
+path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
+
+print("Path to dataset files:", path)
 
 def perform_kmeans(start_date, end_date, country, engagement):
     print('PERFORMING K-MEANS')
     print('------------------')
+    print('User Input: ')
+    print(f'Start Data: {start_date}')
+    print(f'End Date: {end_date}')
+    print(f'Country: {country}')
+    print(f'Engagement: {engagement}')
 
 def calc_engagement_rate(video):
     # High Engagement(above 5 %): 67 - 100
