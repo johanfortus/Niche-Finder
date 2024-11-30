@@ -1,10 +1,13 @@
 from sklearn.cluster import KMeans
 import pandas as pd
 import kagglehub
+import os
 
 path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
+csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
 
-print("Path to dataset files:", path)
+df = pd.read_csv(csv_file_path)
+print(df.head())
 
 def perform_kmeans(start_date, end_date, country, engagement):
     print('PERFORMING K-MEANS')
