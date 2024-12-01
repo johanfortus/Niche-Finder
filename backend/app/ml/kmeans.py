@@ -7,7 +7,7 @@ path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countri
 csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
 
 df = pd.read_csv(csv_file_path)
-print(df.head())
+print(df['publish_date'])
 
 def perform_kmeans(start_date, end_date, country, engagement):
     print('PERFORMING K-MEANS')
@@ -17,6 +17,14 @@ def perform_kmeans(start_date, end_date, country, engagement):
     print(f'End Date: {end_date}')
     print(f'Country: {country}')
     print(f'Engagement: {engagement}')
+    print()
+
+    df_filtered = df[df['publish_date'] > start_date]
+    print(f'dataframe filtered: {df_filtered}')
+    if df_filtered.empty:
+        print('dataframe empty')
+
+
 
 def calc_engagement_rate(video):
     # High Engagement(above 5 %): 67 - 100
@@ -49,7 +57,7 @@ class VideoExample:
 
 simulated_data = {
     'searchType': 'k-means',
-    'dateRange': {'start': '2024-11-01', 'end': '2024-11-17'},
+    'dateRange': {'start': '2024-11-25', 'end': '2024-11-30'},
     'country': 'Spain',
     'engagement': '72',
     'tags': ['sports', 'soccer']
@@ -62,8 +70,8 @@ sim_engagement = simulated_data['engagement']
 # print(f'End Date: {sim_end_date}')
 # print(f'Country: {sim_country}')
 # print(f'Engagement: {sim_engagement}')
-# print(perform_kmeans(sim_start_date, sim_end_date, sim_country, sim_engagement))
+print(perform_kmeans(sim_start_date, sim_end_date, sim_country, sim_engagement))
 
-sim_video = VideoExample('How Much Tape To Stop A Lamborghini?', 'MrBeast', 177811809, 5251977, 6791)
+# sim_video = VideoExample('How Much Tape To Stop A Lamborghini?', 'MrBeast', 177811809, 5251977, 6791)
 
-print(calc_engagement_rate(sim_video))
+# print(calc_engagement_rate(sim_video))
