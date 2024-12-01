@@ -7,7 +7,6 @@ path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countri
 csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
 
 df = pd.read_csv(csv_file_path)
-print(df['publish_date'])
 
 def perform_kmeans(start_date, end_date, country, engagement):
     print('PERFORMING K-MEANS')
@@ -19,31 +18,33 @@ def perform_kmeans(start_date, end_date, country, engagement):
     print(f'Engagement: {engagement}')
     print()
 
-    df_filtered = df[df['publish_date'] > start_date]
-    print(f'dataframe filtered: {df_filtered}')
-    if df_filtered.empty:
-        print('dataframe empty')
+    df_filtered = df[(df['publish_date'] >= start_date) & (df['publish_date'] <= end_date) & (df['country'] == 'ES')]
+    df_filtered = df_filtered.copy()
+    df_filtered['engagement_rate'] = ((df_filtered['like_count'] + df_filtered['comment_count']) / df_filtered['view_count']) * 100
 
+    engagement = calc_engagement_rate(engagement)
+    print(f'Engagement: {engagement}')
 
+    if engagement == 'High':
+        df_filtered = df_filtered[df_filtered['engagement_rate'] > 5]
+    elif engagement == 'Moderate':
+        df_filtered = df_filtered[(df_filtered['engagement_rate'] > 2) & (df_filtered['engagement_rate'] < 5)]
+    elif engagement == 'Low':
+        df_filtered = df_filtered[df_filtered['engagement_rate'] < 2]
 
-def calc_engagement_rate(video):
+    print(df_filtered)
+
+def calc_engagement_rate(engagement):
     # High Engagement(above 5 %): 67 - 100
     # Medium Engagement(between 2 % and 5 %): 33 - 66
     # Low Engagement(between 0 % and 2 %): 0 - 32
-    print(f'Title: {video.title}')
-    print(f'Channel: {video.channel_name}')
-    print(f'Views: {video.view_count}')
-    print(f'Likes: {video.like_count}')
-    print(f'Comments: {video.comment_count}')
+    engagement = int(engagement)
 
-    engagement_rate = ((video.like_count + video.comment_count)/video.view_count) * 100
-    print(f'Engagement Rate: {round(engagement_rate, 2)}%')
-
-    if engagement_rate >= 5:
+    if engagement >= 67:
         return 'High'
-    elif engagement_rate >= 2 and engagement_rate < 5:
+    elif engagement <= 66 and engagement >= 33:
         return 'Moderate'
-    elif engagement_rate >= 0 and engagement_rate < 2:
+    elif engagement <= 32:
         return 'Low'
 
 
