@@ -26,18 +26,18 @@ def perform_kmeans(start_date, end_date, country, engagement):
     print(f'Engagement: {engagement}')
 
     if engagement == 'High':
-        df_filtered = df_filtered[df_filtered['engagement_rate'] > 5]
+        df_filtered = df_filtered[df_filtered['engagement_rate'] >= 7]
     elif engagement == 'Moderate':
-        df_filtered = df_filtered[(df_filtered['engagement_rate'] > 2) & (df_filtered['engagement_rate'] < 5)]
+        df_filtered = df_filtered[(df_filtered['engagement_rate'] >= 3) & (df_filtered['engagement_rate'] < 7)]
     elif engagement == 'Low':
-        df_filtered = df_filtered[df_filtered['engagement_rate'] < 2]
+        df_filtered = df_filtered[df_filtered['engagement_rate'] < 3]
 
     print(df_filtered)
 
 def calc_engagement_rate(engagement):
-    # High Engagement(above 5 %): 67 - 100
-    # Medium Engagement(between 2 % and 5 %): 33 - 66
-    # Low Engagement(between 0 % and 2 %): 0 - 32
+    # High Engagement(above 7 %): 67 - 100
+    # Medium Engagement(between 3 % and 6 %): 33 - 66
+    # Low Engagement(between 0 % and 3 %): 0 - 32
     engagement = int(engagement)
 
     if engagement >= 67:
