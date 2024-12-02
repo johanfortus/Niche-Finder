@@ -25,6 +25,10 @@ form.addEventListener('submit', async (e) => {
     let engagement = engagementInput.value;
 
     try {
+        // 
+        loadingScreen();
+
+        // Send request to Flask
         let res = await axios.post('/result', 
             {
                 searchType,
