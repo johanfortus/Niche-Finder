@@ -53,11 +53,14 @@ def perform_kmeans(start_date, end_date, country, engagement):
     kmeans.fit(df_filtered[['view_count_T', 'like_count_T']])
     df_filtered['kmeans_3'] = kmeans.labels_
 
+    scatter_data = df_filtered[['title', 'channel_name', 'thumbnail_url', 'video_id', 'channel_id', 'view_count_T', 'like_count_T', 'comment_count_T', 'kmeans_3']].to_dict(orient='records')
+    print(f'Scatter Data: {scatter_data}')
+    return scatter_data
     # Plot result
-    plt.scatter(x = df_filtered['view_count_T'], y = df_filtered['like_count_T'], c = df_filtered['kmeans_3'])
-    plt.xlabel('View Count (Scaled)')
-    plt.ylabel('Like Count (Scaled)')
-    plt.show()
+    # plt.scatter(x = df_filtered['view_count_T'], y = df_filtered['like_count_T'], c = df_filtered['kmeans_3'])
+    # plt.xlabel('View Count (Scaled)')
+    # plt.ylabel('Like Count (Scaled)')
+    # plt.show()
 
 
 
@@ -121,7 +124,7 @@ sim_engagement = simulated_data['engagement']
 # print(f'End Date: {sim_end_date}')
 # print(f'Country: {sim_country}')
 # print(f'Engagement: {sim_engagement}')
-print(perform_kmeans(sim_start_date, sim_end_date, sim_country, sim_engagement))
+# print(perform_kmeans(sim_start_date, sim_end_date, sim_country, sim_engagement))
 
 # sim_video = VideoExample('How Much Tape To Stop A Lamborghini?', 'MrBeast', 177811809, 5251977, 6791)
 
