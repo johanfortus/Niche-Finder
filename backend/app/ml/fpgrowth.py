@@ -20,7 +20,7 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
     csv_file_path = os.path.join(csv_dir_path, 'trending_yt_videos_113_countries.csv')
     try:
         df = pd.read_csv(csv_file_path, encoding='utf-8')
-        # a check to see if reading correctly
+        # Print the first two rows to verify the data is read correctly
         print("First rows of CSV file:")
         print(df.head(2))
     except FileNotFoundError:
@@ -35,12 +35,12 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
         print("The dataset does not contain a 'country' column.")
         return None
 
-    # check countries
+    # Check for missing values in the country column
     if df['country'].isna().all():
         print("The country column is completely empty. Please check the dataset.")
         return None
 
-    # filter by country
+    # Filter by country
     df = df[df['country'] == country]
     if df.empty:
         print(f"No data available for the country: {country}")
@@ -58,17 +58,17 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
     # filters invalid dates
     df = df.dropna(subset=[date_column])
 
-    # filter by date range
+    # Filter by date range
     mask = (df[date_column] >= start_date) & (df[date_column] <= end_date)
     df = df.loc[mask]
     if df.empty:
         print(f"No data available in the date range: {start_date} to {end_date}")
         return None
 
-    # print date range, was returning "nat to nat" earlier, based on what is selected
+    # Debug: Print the range of dates available in the dataset
     print("Available publish date range:", df[date_column].min(), "to", df[date_column].max())
 
-    # will print the country codes based on what is being select
+    # Debug: Print unique country codes in the dataset
     print("Unique country codes in dataset:", df['country'].unique())
 
     # engagement rate calculation
@@ -106,13 +106,13 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
         print("No tags found in the filtered dataset.")
         return None
 
-    # filter tags
+    # Remove highly frequent tags
     tag_counts = df_filtered['tag_list'].explode().value_counts()
     threshold = len(df_filtered) * 0.5  # Set threshold at 50% of records
     frequent_tags = tag_counts[tag_counts > threshold].index.tolist()
     df_filtered['tag_list'] = df_filtered['tag_list'].apply(lambda tags: [tag for tag in tags if tag not in frequent_tags])
 
-    # update list of *unique* tags after removing highly frequent tags
+    # Update list of *unique* tags after removing highly frequent tags
     all_tags = set()
     for tags in df_filtered['tag_list']:
         all_tags.update([tag.strip().lower() for tag in tags])
@@ -137,7 +137,7 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
     # convert to bool
     df_tags = df_tags.astype(bool)
 
-    # trying to fix redundant tags
+    # FP-Growth with max_len to limit the size of itemsets
     frequent_itemsets = fpgrowth(df_tags, min_support=min_support, use_colnames=True, max_len=3)
 
     if frequent_itemsets.empty:
@@ -157,7 +157,7 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
         return None
 
     # filter rules based on lift value to remove redundant ones
-    rules = rules[rules['lift'] > 0.5]
+    rules = rules[rules['lift'] > 1.5]
 
     if rules.empty:
         print("No association rules found with the given lift threshold.")
@@ -166,14 +166,22 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
     # print rules
     print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
 
-    return rules
+    # find the tags with the best engagement
+    best_tags = set()
+    for antecedents in rules['antecedents']:
+        best_tags.update(antecedents)
+
+    print("Tags that produce the best results for engagement:")
+    print(best_tags)
+
+    return best_tags
 
 # simulated input data for testing
 simulated_data = {
     'searchType': 'fpgrowth',
     'dateRange': {'start': '2024-09-09', 'end': '2024-10-25'},
     'country': 'US',
-    'engagement': 55 ,
+    'engagement': 35,
     'min_support': 0.001,
 }
 
@@ -184,4 +192,4 @@ sim_engagement = simulated_data['engagement']
 sim_min_support = simulated_data['min_support']
 
 # FP-Growth call for testing
-rules = perform_fpgrowth(sim_start_date, sim_end_date, sim_country, sim_engagement, sim_min_support)
+best_tags = perform_fpgrowth(sim_start_date, sim_end_date, sim_country, sim_engagement, sim_min_support)
