@@ -52,6 +52,8 @@ def perform_kmeans(start_date, end_date, country, engagement):
 
     # Plot result
     plt.scatter(x = df_filtered['view_count'], y = df_filtered['like_count'], c = df_filtered['kmeans_3'])
+    plt.xlabel('View Count')
+    plt.ylabel('Like Count')
     plt.show()
 
 
