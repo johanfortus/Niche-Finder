@@ -43,7 +43,10 @@ def perform_kmeans(start_date, end_date, country, engagement):
 
     # Apply scaling
     scaler = StandardScaler()
-    df_filtered[['view_count_T', 'like_count_T', 'comment_count_T']] = scaler.fit_transform(df_filtered[['view_count', 'like_count', 'comment_count']])
+    df_filtered['view_count_log'] = np.log1p(df_filtered['view_count'])
+    df_filtered['like_count_log'] = np.log1p(df_filtered['like_count'])
+    df_filtered['comment_count_log'] = np.log1p(df_filtered['comment_count'])
+    df_filtered[['view_count_T', 'like_count_T', 'comment_count_T']] = scaler.fit_transform(df_filtered[['view_count_log', 'like_count_log', 'comment_count_log']])
 
     # Perform K-Means
     kmeans = KMeans(n_clusters = 3)
@@ -51,10 +54,12 @@ def perform_kmeans(start_date, end_date, country, engagement):
     df_filtered['kmeans_3'] = kmeans.labels_
 
     # Plot result
-    plt.scatter(x = df_filtered['view_count'], y = df_filtered['like_count'], c = df_filtered['kmeans_3'])
-    plt.xlabel('View Count')
-    plt.ylabel('Like Count')
+    plt.scatter(x = df_filtered['view_count_T'], y = df_filtered['like_count_T'], c = df_filtered['kmeans_3'])
+    plt.xlabel('View Count (Scaled)')
+    plt.ylabel('Like Count (Scaled)')
     plt.show()
+
+
 
 
 # FOR DEVELOPMENT PURPOSES
