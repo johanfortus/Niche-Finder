@@ -68,7 +68,7 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
     # print date range, was returning "nat to nat" earlier, based on what is selected
     print("Available publish date range:", df[date_column].min(), "to", df[date_column].max())
 
-    # will print the country codes based on what is being selected
+    # will print the country codes based on what is being select
     print("Unique country codes in dataset:", df['country'].unique())
 
     # engagement rate calculation
