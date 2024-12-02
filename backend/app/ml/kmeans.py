@@ -1,10 +1,15 @@
-from sklearn.cluster import KMeans
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 import kagglehub
+import os
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 
 path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
+csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
 
-print("Path to dataset files:", path)
+df = pd.read_csv(csv_file_path)
 
 def perform_kmeans(start_date, end_date, country, engagement):
     print('PERFORMING K-MEANS')
@@ -14,25 +19,77 @@ def perform_kmeans(start_date, end_date, country, engagement):
     print(f'End Date: {end_date}')
     print(f'Country: {country}')
     print(f'Engagement: {engagement}')
+    print()
 
-def calc_engagement_rate(video):
-    # High Engagement(above 5 %): 67 - 100
-    # Medium Engagement(between 2 % and 5 %): 33 - 66
-    # Low Engagement(between 0 % and 2 %): 0 - 32
-    print(f'Title: {video.title}')
-    print(f'Channel: {video.channel_name}')
-    print(f'Views: {video.view_count}')
-    print(f'Likes: {video.like_count}')
-    print(f'Comments: {video.comment_count}')
+    # Filter out data based on user's search attribute input
+    df_filtered = df[(df['publish_date'] >= start_date) & (df['publish_date'] <= end_date) & (df['country'] == country)]
+    df_filtered = df_filtered.copy()
+    df_filtered['engagement_rate'] = ((df_filtered['like_count'] + df_filtered['comment_count']) / df_filtered['view_count']) * 100
 
-    engagement_rate = ((video.like_count + video.comment_count)/video.view_count) * 100
-    print(f'Engagement Rate: {round(engagement_rate, 2)}%')
+    engagement = calc_engagement_rate(engagement)
+    print(f'Engagement: {engagement}')
 
-    if engagement_rate >= 5:
+    if engagement == 'High':
+        df_filtered = df_filtered[df_filtered['engagement_rate'] >= 7]
+    elif engagement == 'Moderate':
+        df_filtered = df_filtered[(df_filtered['engagement_rate'] >= 3) & (df_filtered['engagement_rate'] < 7)]
+    elif engagement == 'Low':
+        df_filtered = df_filtered[df_filtered['engagement_rate'] < 3]
+
+    # Clean up dataframe
+    df_filtered = df_filtered.copy()
+    df_filtered.dropna(subset=['view_count', 'like_count', 'comment_count'], inplace=True)
+    print(df_filtered)
+
+    # Apply scaling
+    scaler = StandardScaler()
+    df_filtered[['view_count_T', 'like_count_T', 'comment_count_T']] = scaler.fit_transform(df_filtered[['view_count', 'like_count', 'comment_count']])
+
+    # Perform K-Means
+    kmeans = KMeans(n_clusters = 3)
+    kmeans.fit(df_filtered[['view_count_T', 'like_count_T']])
+    df_filtered['kmeans_3'] = kmeans.labels_
+
+    # Plot result
+    plt.scatter(x = df_filtered['view_count'], y = df_filtered['like_count'], c = df_filtered['kmeans_3'])
+    plt.xlabel('View Count')
+    plt.ylabel('Like Count')
+    plt.show()
+
+
+# FOR DEVELOPMENT PURPOSES
+# determine optimal number clusters through an elbow plot: optimise_k_means(df[['view_count_T', 'like_count_T']], 10)
+# https://www.youtube.com/watch?v=iNlZ3IU5Ffw
+def optimise_k_means(data, max_k):
+    means = []
+    inertias = []
+
+    for k in range(1, max_k):
+        kmeans = KMeans(n_clusters=k)
+        kmeans.fit(data)
+
+        means.append(k)
+        inertias.append(kmeans.inertia_)
+
+    # Elbow plot
+    fig = plt.subplots(figsize=(10,5))
+    plt.plot(means, inertias, 'o-')
+    plt.xlabel('Number of Clusters')
+    plt.ylabel('Inertia')
+    plt.grid(True)
+    plt.show()
+
+
+def calc_engagement_rate(engagement):
+    # High Engagement(above 7 %): 67 - 100
+    # Medium Engagement(between 3 % and 6 %): 33 - 66
+    # Low Engagement(between 0 % and 3 %): 0 - 32
+    engagement = int(engagement)
+    if engagement >= 67:
         return 'High'
-    elif engagement_rate >= 2 and engagement_rate < 5:
+    elif engagement <= 66 and engagement >= 33:
         return 'Moderate'
-    elif engagement_rate >= 0 and engagement_rate < 2:
+    elif engagement <= 32:
         return 'Low'
 
 
@@ -46,10 +103,10 @@ class VideoExample:
 
 simulated_data = {
     'searchType': 'k-means',
-    'dateRange': {'start': '2024-11-01', 'end': '2024-11-17'},
-    'country': 'Spain',
+    'dateRange': {'start': '2024-11-25', 'end': '2024-11-30'},
+    'country': 'US',
     'engagement': '72',
-    'tags': ['sports', 'soccer']
+    'tags': []
 }
 sim_start_date = simulated_data['dateRange']['start']
 sim_end_date = simulated_data['dateRange']['end']
@@ -59,8 +116,8 @@ sim_engagement = simulated_data['engagement']
 # print(f'End Date: {sim_end_date}')
 # print(f'Country: {sim_country}')
 # print(f'Engagement: {sim_engagement}')
-# print(perform_kmeans(sim_start_date, sim_end_date, sim_country, sim_engagement))
+print(perform_kmeans(sim_start_date, sim_end_date, sim_country, sim_engagement))
 
-sim_video = VideoExample('How Much Tape To Stop A Lamborghini?', 'MrBeast', 177811809, 5251977, 6791)
+# sim_video = VideoExample('How Much Tape To Stop A Lamborghini?', 'MrBeast', 177811809, 5251977, 6791)
 
-print(calc_engagement_rate(sim_video))
+# print(calc_engagement_rate(sim_video))
