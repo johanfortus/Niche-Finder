@@ -40,7 +40,8 @@ form.addEventListener('submit', async (e) => {
                 }
             }
         );
-        console.log(res.data);
+        const scatterData = res.data;
+        createScatterPlot(scatterData);
     }
     catch(error) {
         console.log(error);
