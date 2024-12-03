@@ -1,9 +1,15 @@
-
 let loadingSection = document.querySelector('#loading');
 let loadingContainer = document.querySelector('.loadingContainer');
+
 let resultSection = document.querySelector('.result-section');
 let resultHeader = document.querySelector('.result-header');
-let scatterPlot = document.querySelector('#scatter-plot')
+
+let clusterTabOne = document.querySelector('.cluster-tab-one');
+let clusterTabTwo = document.querySelector('.cluster-tab-two');
+let clusterTabThree = document.querySelector('.cluster-tab-three');
+let clusterTabSlider = document.querySelector('.cluster-tab-slider');
+
+let scatterPlot = document.querySelector('#scatter-plot');
 
 function resultPage(scatterData) {
 
