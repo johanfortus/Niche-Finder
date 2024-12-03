@@ -105,5 +105,27 @@ function createScatterPlot(scatterData){
         .attr("cx", d => x(d.view_count_T))
         .attr("cy", d => y(d.like_count_T))
         .attr("r", 5)
-        .style("fill", d => color(d.kmeans_3));
+        .style("fill", d => color(d.kmeans_3))
+
+        // Hover over dots for video information
+        .on('mouseover', (e, d) => {
+            d3.select('.tooltip')
+                .style('visibility', 'visible')
+                .html(`
+                        <b>${d.title}</b> <br>
+                        Channel: ${d.channel_name} <br>
+                        Views: ${d.view_count} <br>
+                        Likes: ${d.like_count} <br>
+                        Comments: ${d.comment_count}
+                    `)
+        })
+        .on('mousemove', (e) => {
+            d3.select('.tooltip')
+                .style('top', (e.pageY - 10) + 'px')
+                .style('left', (e.pageX + 10) + 'px');
+        })
+        .on('mouseout', () => {
+            d3.select('.tooltip')
+                .style('visibility', 'hidden');
+        })
 }
