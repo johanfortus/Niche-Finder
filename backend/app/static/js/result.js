@@ -142,10 +142,10 @@ function createScatterPlot(scatterData){
 
             // Video information
             d3.select('.tooltip')
-                .style('visibility', 'visible')
+                .classed('visible', true)
                 .html(`
-                        <img src="${d.thumbnail_url}" class="tooltip-thumbnail"> <br>
-                        <b>${d.title}</b> <br>
+                        <img src="${d.thumbnail_url}" class="tooltip-thumbnail" onClick="window.open(href='https://www.youtube.com/watch?v=${d.video_id}', '_blank')"> <br>
+                        <b class="tooltip-video-title" onClick="window.open(href='https://www.youtube.com/watch?v=${d.video_id}', '_blank')">${d.title}</b> <br>
                         Channel: ${d.channel_name} <br>
                         Views: ${d.view_count} <br>
                         Likes: ${d.like_count} <br>
@@ -174,7 +174,7 @@ function createScatterPlot(scatterData){
                     .style('fill', color(d3.select(this).data()[0].kmeans_3));
 
                 d3.select('.tooltip')
-                    .style('visibility', 'hidden');
+                    .classed('visible', false);
             }
         })
 
@@ -182,7 +182,7 @@ function createScatterPlot(scatterData){
         .on('click', function(e, d) {
             if(activeDot === this) {
                 activeDot = null;
-                d3.select('.tooltip').style('visibility', 'hidden');
+                d3.select('.tooltip').classed('visible', false);
                 d3.select(this)
                     .transition()
                     .attr('r', 5)
@@ -205,10 +205,10 @@ function createScatterPlot(scatterData){
                     .style('fill', d3.color(color(d.kmeans_3)).darker(1))
 
                 d3.select('.tooltip')
-                    .style('visibility', 'visible')
+                    .classed('visible', true)
                     .html(`
-                            <img src="${d.thumbnail_url}" class="tooltip-thumbnail"> <br>
-                            <b>${d.title}</b> <br>
+                            <img src="${d.thumbnail_url}" class="tooltip-thumbnail" onClick="window.open(href='https://www.youtube.com/watch?v=${d.video_id}', '_blank')"> <br>
+                            <b class="tooltip-video-title" onClick="window.open(href='https://www.youtube.com/watch?v=${d.video_id}', '_blank')">${d.title}</b> <br>
                             Channel: ${d.channel_name} <br>
                             Views: ${d.view_count} <br>
                             Likes: ${d.like_count} <br>
