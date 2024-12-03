@@ -374,6 +374,22 @@ select {
         width: 210px;
     }
 }
+.cluster-tab-slider-two-to-one {
+    animation: clusterTabMoveTwoToOne 300ms;
+    animation-fill-mode: forwards;
+}
+@keyframes clusterTabMoveTwoToOne {
+    from {
+        left: 230px;
+        height: 50px;
+        width: 160px;
+        bottom: 18px;
+    }
+    to {
+        left: 20px;
+        width: 210px;
+    }
+}
 
 .cluster-tab-one {
     color: white;

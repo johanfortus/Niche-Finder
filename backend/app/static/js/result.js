@@ -259,16 +259,59 @@ function createScatterPlot(scatterData){
 
 
 // Cluster Tab Animations
-clusterTabThree.addEventListener('click', (e) => {
+// TAB ONE CLICKED
+clusterTabOne.addEventListener('click', (e) => {
     e.preventDefault();
+
+    // two -> one
     if(clusterTabTwo.classList.contains('active')) {
         clusterTabTwo.classList.remove('active');
-        clusterTabThree.classList.add('active');
-        clusterTabSlider.classList.add('cluster-tab-slider-two-to-three');
+        clusterTabOne.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-two-to-one');
     }
+
+    // three -> one
+    if(clusterTabThree.classList.contains('active')) {
+        clusterTabThree.classList.remove('active');
+        clusterTabOne.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-three-to-one');
+    }
+})
+
+// TAB TWO CLICKED
+clusterTabTwo.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // one -> two
+    if(clusterTabOne.classList.contains('active')) {
+        clusterTabOne.classList.remove('active');
+        clusterTabTwo.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-one-to-two');
+    }
+
+    // three -> two
+    if(clusterTabThree.classList.contains('active')) {
+        clusterTabThree.classList.remove('active');
+        clusterTabTwo.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-three-to-two');
+    }
+})
+
+// TAB THREE CLICKED
+clusterTabThree.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // one -> three
     if(clusterTabOne.classList.contains('active')) {
         clusterTabOne.classList.remove('active');
         clusterTabThree.classList.add('active');
         clusterTabSlider.classList.add('cluster-tab-slider-one-to-three');
+    }
+
+    // two -> three
+    if(clusterTabTwo.classList.contains('active')) {
+        clusterTabTwo.classList.remove('active');
+        clusterTabThree.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-two-to-three');
     }
 })
