@@ -42,7 +42,6 @@ function resultPage(scatterData) {
 
         createScatterPlot(scatterData);
     }, 2000);
-
 }
 
 // Used Scatter Plot Template - https://d3-graph-gallery.com/graph/custom_theme.html
@@ -257,3 +256,19 @@ function createScatterPlot(scatterData){
             });
     }
 }
+
+
+// Cluster Tab Animations
+clusterTabThree.addEventListener('click', (e) => {
+    e.preventDefault();
+    if(clusterTabTwo.classList.contains('active')) {
+        clusterTabTwo.classList.remove('active');
+        clusterTabThree.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-two-to-three');
+    }
+    if(clusterTabOne.classList.contains('active')) {
+        clusterTabOne.classList.remove('active');
+        clusterTabThree.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-one-to-three');
+    }
+})

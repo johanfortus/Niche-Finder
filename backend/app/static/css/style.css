@@ -344,3 +344,62 @@ select {
     color: rgb(0, 136, 255);
     cursor: pointer;
 }
+
+.cluster-tab-slider-default {
+    position: relative;
+    background-color: white;
+    margin-top: 5px;
+    height: 50px;
+    width: 160px;
+    left: 230px;
+    bottom: 18px;
+    border-radius: 240px;
+    z-index: -1;
+    transition: all 300ms ease;
+}
+
+.cluster-tab-slider-two-to-three {
+    animation: clusterTabMoveTwoToThree 300ms;
+    animation-fill-mode: forwards;
+}
+@keyframes clusterTabMoveTwoToThree {
+    from {
+        left: 230px;
+        height: 50px;
+        width: 160px;
+        bottom: 18px;
+    }
+    to {
+        left: 400px;
+        width: 210px;
+    }
+}
+
+.cluster-tab-one {
+    color: white;
+    cursor: pointer;
+    transition: color 200ms ease;
+}
+.cluster-tab-two {
+    color: white;
+    cursor: pointer;
+    transition: color 200ms ease;
+}
+.cluster-tab-three {
+    color: white;
+    cursor: pointer;
+    transition: color 200ms ease;
+}
+
+.cluster-tab-one.active {
+    color: black;
+    font-weight: bold;
+}
+.cluster-tab-two.active {
+    color: black;
+    font-weight: bold;
+}
+.cluster-tab-three.active {
+    color: black;
+    font-weight: bold;
+}
