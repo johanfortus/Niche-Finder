@@ -112,6 +112,7 @@ function createScatterPlot(scatterData){
             d3.select('.tooltip')
                 .style('visibility', 'visible')
                 .html(`
+                        <img src="${d.thumbnail_url}" class="tooltip-thumbnail"> <br>
                         <b>${d.title}</b> <br>
                         Channel: ${d.channel_name} <br>
                         Views: ${d.view_count} <br>
