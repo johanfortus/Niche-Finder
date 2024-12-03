@@ -25,9 +25,6 @@ form.addEventListener('submit', async (e) => {
     let engagement = engagementInput.value;
 
     try {
-        // 
-        loadingScreen();
-
         // Send request to Flask
         let res = await axios.post('/result', 
             {
@@ -45,7 +42,7 @@ form.addEventListener('submit', async (e) => {
             }
         );
         const scatterData = res.data;
-        createScatterPlot(scatterData);
+        resultPage(scatterData);
     }
     catch(error) {
         console.log(error);
