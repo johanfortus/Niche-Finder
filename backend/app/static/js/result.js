@@ -111,10 +111,11 @@ function createScatterPlot(scatterData){
         .data(scatterData)
         .enter()
         .append("circle")
-        .attr("cx", d => x(d.view_count_T))
-        .attr("cy", d => y(d.like_count_T))
-        .attr("r", 5)
+        .attr("cx", () => Math.random() * width)
+        .attr("cy", () => Math.random() * height)
+        .attr("r", 0)
         .style("fill", d => color(d.kmeans_3))
+        .style('cursor', 'pointer')
 
         // Hover over dots for video information
         .on('mouseover', (e, d) => {
@@ -138,4 +139,12 @@ function createScatterPlot(scatterData){
             d3.select('.tooltip')
                 .style('visibility', 'hidden');
         })
+
+        // Animation
+        .transition()
+        .duration(1000)
+        .delay((d, i) => i * 50)
+        .attr('cx', d => x(d.view_count_T))
+        .attr('cy', d => y(d.like_count_T))
+        .attr('r', 5)
 }
