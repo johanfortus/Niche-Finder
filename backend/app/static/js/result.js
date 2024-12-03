@@ -44,7 +44,7 @@ function createScatterPlot(scatterData){
         .attr("x",0)
         .attr("y",0)
         .attr("height", height)
-        .attr("width", height)
+        .attr("width", width)
         .style("fill", "#FFFFFF")
 
     var x = d3.scaleLinear()
@@ -90,5 +90,20 @@ function createScatterPlot(scatterData){
         .attr("x", -margin.top - height/2 + 20)
         .style("fill", "white")
         .text("Like Count");
-
+    
+    // Color scale - 3 clusters
+    var color = d3.scaleOrdinal()
+        .domain([0, 1, 2])
+        .range(["#F8766D", "#00BA38", "#619CFF"]);
+    
+    // Add dots
+    svg.append('g')
+        .selectAll("circle")
+        .data(scatterData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => x(d.view_count_T))
+        .attr("cy", d => y(d.like_count_T))
+        .attr("r", 5)
+        .style("fill", d => color(d.kmeans_3));
 }
