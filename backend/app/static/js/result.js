@@ -17,6 +17,9 @@ function resultPage(scatterData) {
     if(resultSection[1] === undefined) {
         resultSection.classList.add('tag-section-invisible');
         resultHeader.innerHTML = '';
+        clusterTabOne.innerHTML = '';
+        clusterTabTwo.innerHTML = '';
+        clusterTabThree.innerHTML = '';
         scatterPlot.innerHTML = '';
     }
 
@@ -32,6 +35,10 @@ function resultPage(scatterData) {
 
         resultSection.classList.remove('tag-section-invisible');
         resultHeader.innerHTML = 'Result';
+
+        clusterTabOne.innerHTML = 'Views vs Comments'
+        clusterTabTwo.innerHTML = 'Likes vs Views'
+        clusterTabThree.innerHTML = 'Views vs Engagement'
 
         createScatterPlot(scatterData);
     }, 2000);
