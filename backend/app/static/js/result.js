@@ -7,7 +7,7 @@ let resultHeader = document.querySelector('.result-header');
 let clusterTabOne = document.querySelector('.cluster-tab-one');
 let clusterTabTwo = document.querySelector('.cluster-tab-two');
 let clusterTabThree = document.querySelector('.cluster-tab-three');
-let clusterTabSlider = document.querySelector('.cluster-tab-slider');
+let clusterTabSlider = document.querySelector('#cluster-tab-slider');
 
 let scatterPlot = document.querySelector('#scatter-plot');
 
@@ -263,6 +263,8 @@ function createScatterPlot(scatterData){
 clusterTabOne.addEventListener('click', (e) => {
     e.preventDefault();
 
+    clusterTabSlider.className = "";
+
     // two -> one
     if(clusterTabTwo.classList.contains('active')) {
         clusterTabTwo.classList.remove('active');
@@ -281,6 +283,8 @@ clusterTabOne.addEventListener('click', (e) => {
 // TAB TWO CLICKED
 clusterTabTwo.addEventListener('click', (e) => {
     e.preventDefault();
+    
+    clusterTabSlider.className = "";
 
     // one -> two
     if(clusterTabOne.classList.contains('active')) {
@@ -300,6 +304,8 @@ clusterTabTwo.addEventListener('click', (e) => {
 // TAB THREE CLICKED
 clusterTabThree.addEventListener('click', (e) => {
     e.preventDefault();
+    
+    clusterTabSlider.className = "";
 
     // one -> three
     if(clusterTabOne.classList.contains('active')) {

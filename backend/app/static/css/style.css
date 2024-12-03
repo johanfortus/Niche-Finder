@@ -345,7 +345,7 @@ select {
     cursor: pointer;
 }
 
-.cluster-tab-slider-default {
+#cluster-tab-slider {
     position: relative;
     background-color: white;
     margin-top: 5px;
@@ -358,6 +358,58 @@ select {
     transition: all 300ms ease;
 }
 
+/* tab one -> tab two */
+.cluster-tab-slider-one-to-two {
+    animation: clusterTabMoveOneToTwo 300ms;
+    animation-fill-mode: forwards;
+}
+@keyframes clusterTabMoveOneToTwo {
+    from {
+        left: 20px;
+        width: 210px;
+    }
+    to {
+        left: 230px;
+        height: 50px;
+        width: 160px;
+        bottom: 18px;
+    }
+}
+
+/* tab one -> tab three */
+.cluster-tab-slider-one-to-three {
+    animation: clusterTabMoveOneToThree 300ms;
+    animation-fill-mode: forwards;
+}
+@keyframes clusterTabMoveOneToThree {
+    from {
+        left: 20px;
+        width: 210px;
+    }
+    to {
+        left: 400px;
+        width: 210px;
+    }
+}
+
+/* tab two -> tab one */
+.cluster-tab-slider-two-to-one {
+    animation: clusterTabMoveTwoToOne 300ms;
+    animation-fill-mode: forwards;
+}
+@keyframes clusterTabMoveTwoToOne {
+    from {
+        left: 230px;
+        height: 50px;
+        width: 160px;
+        bottom: 18px;
+    }
+    to {
+        left: 20px;
+        width: 210px;
+    }
+}
+/* tab two -> tab three */
 .cluster-tab-slider-two-to-three {
     animation: clusterTabMoveTwoToThree 300ms;
     animation-fill-mode: forwards;
@@ -374,20 +426,37 @@ select {
         width: 210px;
     }
 }
-.cluster-tab-slider-two-to-one {
-    animation: clusterTabMoveTwoToOne 300ms;
+
+/* tab three -> tab one */
+.cluster-tab-slider-three-to-one {
+    animation: clusterTabMoveThreeToOne 300ms;
     animation-fill-mode: forwards;
 }
-@keyframes clusterTabMoveTwoToOne {
+@keyframes clusterTabMoveThreeToOne {
     from {
-        left: 230px;
-        height: 50px;
-        width: 160px;
-        bottom: 18px;
+        left: 400px;
+        width: 210px;
     }
     to {
         left: 20px;
         width: 210px;
+    }
+}
+/* tab three -> tab two */
+.cluster-tab-slider-three-to-two {
+    animation: clusterTabMoveThreeToTwo 300ms;
+    animation-fill-mode: forwards;
+}
+@keyframes clusterTabMoveThreeToTwo {
+    from {
+        left: 400px;
+        width: 210px;
+    }
+    to {
+        left: 230px;
+        height: 50px;
+        width: 160px;
+        bottom: 18px;
     }
 }
 
