@@ -170,7 +170,8 @@ function createScatterPlot(scatterData){
                 d3.select(this)
                     .transition()
                     .duration(200)
-                    .attr('r', 5);
+                    .attr('r', 5)
+                    .style('fill', color(d3.select(this).data()[0].kmeans_3));
 
                 d3.select('.tooltip')
                     .style('visibility', 'hidden');

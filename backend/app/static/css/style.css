@@ -325,4 +325,9 @@ select {
     height: auto;
     border-radius: 5px;
     margin-top: 5px;
+    cursor: pointer;
+    /* transition: all 100ms ease; */
 }
+/* .tooltip-thumbnail:hover{
+    transform: scale(1.05);
+} */
