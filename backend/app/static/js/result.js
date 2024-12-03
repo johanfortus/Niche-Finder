@@ -67,14 +67,14 @@ function createScatterPlot(scatterData){
     // X axis
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSize(-height*1.3).ticks(10))
+        .call(d3.axisBottom(x).tickSize(-height*1).ticks(10))
         .call(g => g.select(".domain").remove())
         .selectAll("text")
         .style("fill", "white")
     
     // Y axis
     svg.append("g")
-        .call(d3.axisLeft(y).tickSize(-width*1.3).ticks(7))
+        .call(d3.axisLeft(y).tickSize(-width*1).ticks(7))
         .call(g => g.select(".domain").remove())
         .selectAll("text")
         .style("fill", "white");
@@ -89,7 +89,7 @@ function createScatterPlot(scatterData){
         .attr("x", width/2 + margin.left)
         .attr("y", height + margin.top + 20)
         .style("fill", "white")
-        .text("View Count");
+        .text("View Count (Scaled)");
     
     // Y axis label
     svg.append("text")
@@ -98,7 +98,7 @@ function createScatterPlot(scatterData){
         .attr("y", -margin.left + 20)
         .attr("x", -margin.top - height/2 + 20)
         .style("fill", "white")
-        .text("Like Count");
+        .text("Like Count (Scaled)");
     
     // Color scale - 3 clusters
     var color = d3.scaleOrdinal()
@@ -148,5 +148,20 @@ function createScatterPlot(scatterData){
         .attr('cx', d => x(d.view_count_T))
         .attr('cy', d => y(d.like_count_T))
         .attr('r', 5)
-        .style('opacity', 1);
+        .style('opacity', 1)
+        .on('end', function() {
+            floatingAnimation(d3.select(this));
+        });
+    
+    function floatingAnimation(selection) {
+        selection
+            .transition()
+            .duration(2000)
+            .ease(d3.easeSinInOut)
+            .attr('cx', d => x(d.view_count_T) + (Math.random() - 0.5) * 10)
+            .attr('cy', d => y(d.like_count_T) + (Math.random() - 0.5) * 10)
+            .on('end', function() {
+                floatingAnimation(d3.select(this));
+            });
+    }
 }
