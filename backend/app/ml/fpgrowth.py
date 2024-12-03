@@ -11,9 +11,17 @@ import os
 asaniczka_trending_youtube_videos_113_countries_path = kagglehub.dataset_download('asaniczka/trending-youtube-videos-113-countries')
 print('Data source import complete.')
 
-def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
+
+def perform_fpgrowth(start_date, end_date, country, engagement, min_support=0.001):
     print('PERFORMING FP-GROWTH')
     print('-------------------')
+    print('User Input: ')
+    print(f'Start Date: {start_date}')
+    print(f'End Date: {end_date}')
+    print(f'Country: {country}')
+    print(f'Engagement: {engagement}')
+    print(f'Min Support: {min_support}')
+    print()
 
     # load dataset from Kaggle
     csv_dir_path = asaniczka_trending_youtube_videos_113_countries_path
@@ -58,6 +66,10 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
     # filters invalid dates
     df = df.dropna(subset=[date_column])
 
+    # Ensure start_date and end_date are in datetime format
+    start_date = pd.to_datetime(start_date, errors='coerce')
+    end_date = pd.to_datetime(end_date, errors='coerce')
+
     # Filter by date range
     mask = (df[date_column] >= start_date) & (df[date_column] <= end_date)
     df = df.loc[mask]
@@ -76,11 +88,12 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
     df['engagement_rate'] = df['engagement_rate'].replace([float('inf'), -float('inf')], 0).fillna(0)
 
     # filter based on engagement level
-    if engagement >= 67:
+    engagement = calc_engagement_rate(engagement)
+    if engagement == 'High':
         df_filtered = df[df['engagement_rate'] > 7]
-    elif 33 <= engagement < 67:
-        df_filtered = df[(df['engagement_rate'] >= 3) & (df['engagement_rate'] <= 6)]
-    elif 0 <= engagement < 33:
+    elif engagement == 'Moderate':
+        df_filtered = df[(df['engagement_rate'] >= 3) & (df['engagement_rate'] <= 7)]
+    elif engagement == 'Low':
         df_filtered = df[df['engagement_rate'] < 3]
     else:
         df_filtered = df.copy()
@@ -176,7 +189,16 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support):
 
     return best_tags
 
-# simulated input data for testing
+def calc_engagement_rate(engagement):
+    engagement = int(engagement)
+    if engagement >= 67:
+        return 'High'
+    elif engagement <= 66 and engagement >= 33:
+        return 'Moderate'
+    elif engagement <= 32:
+        return 'Low'
+
+# Example of using form data input
 simulated_data = {
     'searchType': 'fpgrowth',
     'dateRange': {'start': '2024-09-09', 'end': '2024-10-25'},
