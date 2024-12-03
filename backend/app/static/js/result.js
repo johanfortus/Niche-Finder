@@ -1,9 +1,15 @@
-
 let loadingSection = document.querySelector('#loading');
 let loadingContainer = document.querySelector('.loadingContainer');
+
 let resultSection = document.querySelector('.result-section');
 let resultHeader = document.querySelector('.result-header');
-let scatterPlot = document.querySelector('#scatter-plot')
+
+let clusterTabOne = document.querySelector('.cluster-tab-one');
+let clusterTabTwo = document.querySelector('.cluster-tab-two');
+let clusterTabThree = document.querySelector('.cluster-tab-three');
+let clusterTabSlider = document.querySelector('.cluster-tab-slider');
+
+let scatterPlot = document.querySelector('#scatter-plot');
 
 function resultPage(scatterData) {
 
@@ -11,6 +17,9 @@ function resultPage(scatterData) {
     if(resultSection[1] === undefined) {
         resultSection.classList.add('tag-section-invisible');
         resultHeader.innerHTML = '';
+        clusterTabOne.innerHTML = '';
+        clusterTabTwo.innerHTML = '';
+        clusterTabThree.innerHTML = '';
         scatterPlot.innerHTML = '';
     }
 
@@ -26,6 +35,10 @@ function resultPage(scatterData) {
 
         resultSection.classList.remove('tag-section-invisible');
         resultHeader.innerHTML = 'Result';
+
+        clusterTabOne.innerHTML = 'Views vs Comments'
+        clusterTabTwo.innerHTML = 'Likes vs Views'
+        clusterTabThree.innerHTML = 'Views vs Engagement'
 
         createScatterPlot(scatterData);
     }, 2000);
@@ -142,10 +155,10 @@ function createScatterPlot(scatterData){
 
             // Video information
             d3.select('.tooltip')
-                .style('visibility', 'visible')
+                .classed('visible', true)
                 .html(`
-                        <img src="${d.thumbnail_url}" class="tooltip-thumbnail"> <br>
-                        <b>${d.title}</b> <br>
+                        <img src="${d.thumbnail_url}" class="tooltip-thumbnail" onClick="window.open(href='https://www.youtube.com/watch?v=${d.video_id}', '_blank')"> <br>
+                        <b class="tooltip-video-title" onClick="window.open(href='https://www.youtube.com/watch?v=${d.video_id}', '_blank')">${d.title}</b> <br>
                         Channel: ${d.channel_name} <br>
                         Views: ${d.view_count} <br>
                         Likes: ${d.like_count} <br>
@@ -170,10 +183,11 @@ function createScatterPlot(scatterData){
                 d3.select(this)
                     .transition()
                     .duration(200)
-                    .attr('r', 5);
+                    .attr('r', 5)
+                    .style('fill', color(d3.select(this).data()[0].kmeans_3));
 
                 d3.select('.tooltip')
-                    .style('visibility', 'hidden');
+                    .classed('visible', false);
             }
         })
 
@@ -181,7 +195,7 @@ function createScatterPlot(scatterData){
         .on('click', function(e, d) {
             if(activeDot === this) {
                 activeDot = null;
-                d3.select('.tooltip').style('visibility', 'hidden');
+                d3.select('.tooltip').classed('visible', false);
                 d3.select(this)
                     .transition()
                     .attr('r', 5)
@@ -204,10 +218,10 @@ function createScatterPlot(scatterData){
                     .style('fill', d3.color(color(d.kmeans_3)).darker(1))
 
                 d3.select('.tooltip')
-                    .style('visibility', 'visible')
+                    .classed('visible', true)
                     .html(`
-                            <img src="${d.thumbnail_url}" class="tooltip-thumbnail"> <br>
-                            <b>${d.title}</b> <br>
+                            <img src="${d.thumbnail_url}" class="tooltip-thumbnail" onClick="window.open(href='https://www.youtube.com/watch?v=${d.video_id}', '_blank')"> <br>
+                            <b class="tooltip-video-title" onClick="window.open(href='https://www.youtube.com/watch?v=${d.video_id}', '_blank')">${d.title}</b> <br>
                             Channel: ${d.channel_name} <br>
                             Views: ${d.view_count} <br>
                             Likes: ${d.like_count} <br>

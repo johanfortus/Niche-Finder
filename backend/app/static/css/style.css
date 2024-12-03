@@ -313,6 +313,7 @@ select {
 .tooltip {
     position: absolute;
     visibility: hidden;
+    display: none;
     background-color: white;
     background-origin: 1px solid lightgray;
     padding: 10px;
@@ -320,9 +321,26 @@ select {
     font-size: 12px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
+.tooltip.visible {
+    visibility: visible;
+    display: block;
+}
 .tooltip-thumbnail {
     width: 120px;
     height: auto;
     border-radius: 5px;
     margin-top: 5px;
+    cursor: pointer;
+    transition: all 100ms ease;
+}
+.tooltip-thumbnail:hover{
+    transform: scale(1.05);
+}
+
+.tooltip-video-title {
+    color: rgb(0, 98, 184);
+}
+.tooltip-video-title:hover{
+    color: rgb(0, 136, 255);
+    cursor: pointer;
 }
