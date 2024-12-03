@@ -41,6 +41,7 @@ form.addEventListener('submit', async (e) => {
                 }
             }
         );
+        console.log(res.data);
         const scatterData = res.data;
         resultPage(scatterData);
     }

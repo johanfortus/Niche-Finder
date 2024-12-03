@@ -45,50 +45,50 @@ function createScatterPlot(scatterData){
         .attr("y",0)
         .attr("height", height)
         .attr("width", height)
-        .style("fill", "EBEBEB")
+        .style("fill", "#FFFFFF")
 
-    d3.json(scatterData, function(data) {
+    var x = d3.scaleLinear()
+        .domain(d3.extent(scatterData, d => d.view_count_T))
+        .range([0, width]);
+        
+    var y = d3.scaleLinear()
+        .domain(d3.extent(scatterData, d => d.like_count_T))
+        .range([height, 0]);
 
-        // X axis
-        var x = d3.scaleLinear()
-            .domain([4*0.95, 8*1.001])
-            .range([ 0, width ])
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x).tickSize(-height*1.3).ticks(10))
-            .select(".domain").remove()
-        
-        // Y axis
-        var y = d3.scaleLinear()
-            .domain([-0.001, 9*1.01])
-            .range([ height, 0])
-            .nice()
-        svg.append("g")
-            .call(d3.axisLeft(y).tickSize(-width*1.3).ticks(7))
-            .select(".domain").remove()
-        
-        // Customization
-        svg.selectAll(".tick line")
-            .attr("stroke", "lightgray")
+    // X axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSize(-height*1.3).ticks(10))
+        .call(g => g.select(".domain").remove())
+        .selectAll("text")
+        .style("fill", "white")
+    
+    // Y axis
+    svg.append("g")
+        .call(d3.axisLeft(y).tickSize(-width*1.3).ticks(7))
+        .call(g => g.select(".domain").remove())
+        .selectAll("text")
+        .style("fill", "white");
+    
+    // Customization
+    svg.selectAll(".tick line")
+        .attr("stroke", "lightgray");
 
-        // X axis label
-        svg.append("text")
-            .attr("text-anchor", "end")
-            .attr("x", width/2 + margin.left)
-            .attr("y", height + margin.top + 20)
-            .text("View Count");
-        
-        // Y axis label
-        svg.append("text")
-            .attr("text-anchor", "end")
-            .attr("transform", "rotate(-90)")
-            .attr("y", -margin.left + 20)
-            .attr("x", -margin.top - height/2 + 20)
-            .text("Like Count")
-        
-        // Color scale
-        var color = d3.scaleOrdinal()
-            .domain(["setosa", "versicolor", "virginica" ])
-            .range([ "#F8766D", "#00BA38", "#619CFF"])
-    })
+    // X axis label
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", width/2 + margin.left)
+        .attr("y", height + margin.top + 20)
+        .style("fill", "white")
+        .text("View Count");
+    
+    // Y axis label
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -margin.left + 20)
+        .attr("x", -margin.top - height/2 + 20)
+        .style("fill", "white")
+        .text("Like Count");
+
 }
