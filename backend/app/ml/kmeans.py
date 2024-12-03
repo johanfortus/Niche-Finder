@@ -39,6 +39,7 @@ def perform_kmeans(start_date, end_date, country, engagement):
     # Clean up dataframe
     df_filtered = df_filtered.copy()
     df_filtered.dropna(subset=['view_count', 'like_count', 'comment_count'], inplace=True)
+    df_filtered.drop_duplicates(subset="title", keep="first", inplace=True)
     print(df_filtered)
 
     # Apply scaling
