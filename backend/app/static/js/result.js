@@ -38,7 +38,7 @@ function createScatterPlot(scatterData){
     console.log(scatterData);
 
     var margin = {top: 10, right: 30, bottom: 40, left: 50},
-    width = 520 - margin.left - margin.right,
+    width = 700 - margin.left - margin.right,
     height = 520 - margin.top - margin.bottom;
 
     var svg = d3.select("#scatter-plot")
@@ -115,6 +115,7 @@ function createScatterPlot(scatterData){
         .attr("cy", () => Math.random() * height)
         .attr("r", 0)
         .style("fill", d => color(d.kmeans_3))
+        .style('opacity', 0)
         .style('cursor', 'pointer')
 
         // Hover over dots for video information
@@ -147,4 +148,5 @@ function createScatterPlot(scatterData){
         .attr('cx', d => x(d.view_count_T))
         .attr('cy', d => y(d.like_count_T))
         .attr('r', 5)
+        .style('opacity', 1);
 }
