@@ -7,10 +7,19 @@ let scatterPlot = document.querySelector('#scatter-plot')
 
 function resultPage(scatterData) {
 
+    // If it's the user's second time submitting form, add invisible class to previous results
+    if(resultSection[1] === undefined) {
+        resultSection.classList.add('tag-section-invisible');
+        resultHeader.innerHTML = '';
+        scatterPlot.innerHTML = '';
+    }
+
+    // Display loading screen
     loadingContainer.removeAttribute('class', 'tag-section-invisible');
     loadingSection.classList.toggle('loading');
     loadingSection.scrollIntoView();
 
+    // Display results after two seconds
     let timer = setTimeout(() => {
         loadingContainer.classList.add('tag-section-invisible');
         loadingSection.classList.toggle('loading');
