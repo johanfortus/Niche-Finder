@@ -105,6 +105,8 @@ function createScatterPlot(scatterData){
         .domain([0, 1, 2])
         .range(["#F8766D", "#00BA38", "#619CFF"]);
     
+    var activeDot = null;
+    
     // Add dots
     svg.append('g')
         .selectAll("circle")
@@ -118,8 +120,27 @@ function createScatterPlot(scatterData){
         .style('opacity', 0)
         .style('cursor', 'pointer')
 
-        // Hover over dots for video information
-        .on('mouseover', (e, d) => {
+        // Hover events
+        .on('mouseover', function(e,d) {
+
+            // Reset the previous activeDot
+            if(activeDot && activeDot !== this) {
+                d3.select(activeDot)
+                    .transition()
+                    .duration(200)
+                    .attr('r', 5)
+                    .style('fill', color(d3.select(activeDot).data()[0].kmeans_3));
+                
+                activeDot = null;
+            }
+
+            // Enlarge Dot
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr('r', 8)
+
+            // Video information
             d3.select('.tooltip')
                 .style('visibility', 'visible')
                 .html(`
@@ -130,15 +151,71 @@ function createScatterPlot(scatterData){
                         Likes: ${d.like_count} <br>
                         Comments: ${d.comment_count}
                     `)
-        })
-        .on('mousemove', (e) => {
-            d3.select('.tooltip')
                 .style('top', (e.pageY - 10) + 'px')
                 .style('left', (e.pageX + 10) + 'px');
         })
-        .on('mouseout', () => {
-            d3.select('.tooltip')
-                .style('visibility', 'hidden');
+
+        // Mouse move events
+        .on('mousemove', function() {
+            if(activeDot !== this) {
+                d3.select('.tooltip')
+                    .style('top', (e.pageY - 10) + 'px')
+                    .style('left', (e.pageX + 10) + 'px');
+            }
+        })
+
+        // Mouse out events
+        .on('mouseout', function(){
+            if(activeDot !== this) {
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('r', 5);
+
+                d3.select('.tooltip')
+                    .style('visibility', 'hidden');
+            }
+        })
+
+        // Click events
+        .on('click', function(e, d) {
+            if(activeDot === this) {
+                activeDot = null;
+                d3.select('.tooltip').style('visibility', 'hidden');
+                d3.select(this)
+                    .transition()
+                    .attr('r', 5)
+                    .style('fill', color(d.kmeans_3));
+            }
+            else {
+                if(activeDot) {
+                    d3.select(activeDot)
+                        .transition()
+                        .attr('r', 5)
+                        .style('fill', color(d3.select(activeDot).data()[0].kmeans_3));
+                }
+                activeDot = this;
+
+                // On dot click, stop moving, stay enlarged, and darken
+                d3.select(this)
+                    .interrupt()
+                    .transition()
+                    .attr('r', 8)
+                    .style('fill', d3.color(color(d.kmeans_3)).darker(1))
+
+                d3.select('.tooltip')
+                    .style('visibility', 'visible')
+                    .html(`
+                            <img src="${d.thumbnail_url}" class="tooltip-thumbnail"> <br>
+                            <b>${d.title}</b> <br>
+                            Channel: ${d.channel_name} <br>
+                            Views: ${d.view_count} <br>
+                            Likes: ${d.like_count} <br>
+                            Comments: ${d.comment_count}
+                        `)
+                        .style('top', (e.pageY - 10) + 'px')
+                        .style('left', (e.pageX + 10) + 'px');
+            }
         })
 
         // Animation
@@ -148,6 +225,7 @@ function createScatterPlot(scatterData){
         .attr('cx', d => x(d.view_count_T))
         .attr('cy', d => y(d.like_count_T))
         .attr('r', 5)
+        .style('fill', d => color(d.kmeans_3))
         .style('opacity', 1)
         .on('end', function() {
             floatingAnimation(d3.select(this));
