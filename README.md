@@ -30,3 +30,17 @@ Navigate to backend directory and start server
 (venv) $ cd backend
 (venv) $ flask run
 ```
+Open http://127.0.0.1:5000/ to view project in the browser.
+
+## Built With
+- <img src="https://img.shields.io/badge/-Python-blue?style=for-the-badge&logo=python&logoColor=FFFF2E" />
+- <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
+- <img src="https://img.shields.io/badge/scikit_learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" />
+- <img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white" />
+- <img src="https://img.shields.io/badge/Numpy-777BB4?style=for-the-badge&logo=numpy&logoColor=white" />
+- <img src="https://img.shields.io/badge/javascript-%23F7DF1E.svg?&style=for-the-badge&logo=javascript&logoColor=black" />
+- <img src="https://img.shields.io/badge/d3%20js-F9A03C?style=for-the-badge&logo=d3.js&logoColor=white" />
+
+## Demonstration
+
+<img src="" /> 
