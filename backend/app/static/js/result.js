@@ -10,6 +10,7 @@ let clusterTabThree = document.querySelector('.cluster-tab-three');
 let clusterTabSlider = document.querySelector('#cluster-tab-slider');
 
 let scatterPlot = document.querySelector('#scatter-plot');
+let networkGraph = document.querySelector('#network-graph')
 let x;
 let y;
 
@@ -23,6 +24,7 @@ function resultPage(scatterData) {
         clusterTabTwo.innerHTML = '';
         clusterTabThree.innerHTML = '';
         scatterPlot.innerHTML = '';
+        networkGraph.innerHTML = '';
     }
 
     // Display loading screen
@@ -38,11 +40,15 @@ function resultPage(scatterData) {
         resultSection.classList.remove('tag-section-invisible');
         resultHeader.innerHTML = 'Result';
 
-        clusterTabOne.innerHTML = 'Views vs Comments'
-        clusterTabTwo.innerHTML = 'Likes vs Views'
-        clusterTabThree.innerHTML = 'Views vs Engagement'
-
-        createScatterPlot(scatterData);
+        if (scatterData['best_tags']) {
+            createNetworkGraph(scatterData['best_tags']);
+        }
+        else {
+            clusterTabOne.innerHTML = 'Views vs Comments';
+            clusterTabTwo.innerHTML = 'Likes vs Views';
+            clusterTabThree.innerHTML = 'Views vs Engagement';
+            createScatterPlot(scatterData);
+        }
     }, 2000);
 }
 

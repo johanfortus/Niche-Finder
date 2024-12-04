@@ -43,7 +43,9 @@ form.addEventListener('submit', async (e) => {
                 }
             }
         );
-        console.log(res.data);
+        console.log("tags:")
+        console.log(res.data['best_tags']);
+        console.log("-------------------")
         const scatterData = res.data;
         globalScatterData = scatterData;
         resultPage(scatterData);
