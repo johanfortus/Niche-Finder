@@ -56,7 +56,7 @@ tabOne.addEventListener('click', (e) => {
 
             // Change algorithm title and description
             algoTitle.innerText = 'K-Means Search Algorithm';
-            algoDesc.innerText = 'k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters.';
+            algoDesc.innerText = 'A machine learning algorithm that groups data into clusters based on similarities, aiming to organize items into meaningful categories.';
             
             // Remove fade class
             btnContainer.classList.toggle('element-fade');
@@ -101,7 +101,7 @@ tabTwo.addEventListener('click', (e) => {
             tagHead.classList.toggle('tag-section-invisible');
             tagField.classList.toggle('tag-section-invisible');
 
-            algoTitle.innerText = 'Apriori Algorithm';
+            algoTitle.innerText = 'FP-Growth Algorithm';
             algoDesc.innerText = 'A machine learning algorithm to identify relationships between items by identifying frequent itemsets.';
 
             btnContainer.classList.toggle('element-fade');
