@@ -6,11 +6,6 @@ import os
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 
-# path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
-# csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
-#
-# df = pd.read_csv(csv_file_path)
-
 def perform_kmeans(start_date, end_date, country, engagement):
     print('PERFORMING K-MEANS')
     print('------------------')
@@ -63,6 +58,8 @@ def perform_kmeans(start_date, end_date, country, engagement):
     scatter_data = df_filtered[['title', 'channel_name', 'thumbnail_url', 'video_id', 'channel_id', 'view_count', 'like_count', 'comment_count', 'view_count_T', 'like_count_T', 'comment_count_T', 'engagement_rate_T', 'kmeans_3']].to_dict(orient='records')
     print(f'Scatter Data: {scatter_data}')
     return scatter_data
+
+    # FOR DEVELOPMENT PURPOSES
     # Plot result
     # plt.scatter(x = df_filtered['view_count_T'], y = df_filtered['like_count_T'], c = df_filtered['kmeans_3'])
     # plt.xlabel('View Count (Scaled)')
@@ -96,9 +93,6 @@ def optimise_k_means(data, max_k):
 
 
 def calc_engagement_rate(engagement):
-    # High Engagement(above 7 %): 67 - 100
-    # Medium Engagement(between 3 % and 6 %): 33 - 66
-    # Low Engagement(between 0 % and 3 %): 0 - 32
     engagement = int(engagement)
     if engagement >= 67:
         return 'High'
@@ -107,7 +101,7 @@ def calc_engagement_rate(engagement):
     elif engagement <= 32:
         return 'Low'
 
-
+# DEVELOPMENT PURPOSES
 class VideoExample:
     def __init__(self, title, channel_name, view_count, like_count, comment_count):
         self.title = title
@@ -132,7 +126,5 @@ sim_engagement = simulated_data['engagement']
 # print(f'Country: {sim_country}')
 # print(f'Engagement: {sim_engagement}')
 # print(perform_kmeans(sim_start_date, sim_end_date, sim_country, sim_engagement))
-
 # sim_video = VideoExample('How Much Tape To Stop A Lamborghini?', 'MrBeast', 177811809, 5251977, 6791)
-
 # print(calc_engagement_rate(sim_video))
