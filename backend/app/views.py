@@ -1,5 +1,5 @@
 from flask import render_template, redirect, request, Blueprint, jsonify
-from .ml import kmeans, apriori_algorithm
+from .ml import kmeans, fpgrowth
 from .constants import *
 
 views = Blueprint('views', __name__)
@@ -26,6 +26,6 @@ def result_page():
     if search_type == 'k-means':
         result_data = kmeans.perform_kmeans(start_date, end_date, country, engagement)
     elif search_type == 'apriori':
-        result_data = apriori_algorithm.perform_apriori(start_date, end_date, country, engagement, tags)
+        result_data = fpgrowth.perform_fpgrowth(start_date, end_date, country, engagement, tags)
 
     return jsonify(result_data)

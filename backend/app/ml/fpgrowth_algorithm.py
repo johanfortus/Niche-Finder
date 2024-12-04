@@ -11,7 +11,7 @@ import os
 asaniczka_trending_youtube_videos_113_countries_path = kagglehub.dataset_download('asaniczka/trending-youtube-videos-113-countries')
 print('Data source import complete.')
 
-def perform_fpgrowth(start_date, end_date, country, engagement, min_support=0.1):
+def perform_fpgrowth(start_date, end_date, country, engagement, min_support=0.001):
     print('PERFORMING FP-GROWTH')
     print('-------------------')
 
@@ -192,4 +192,4 @@ sim_engagement = simulated_data['engagement']
 sim_min_support = simulated_data['min_support']
 
 # FP-Growth call for testing
-best_tags = perform_fpgrowth(sim_start_date, sim_end_date, sim_country, sim_engagement, sim_min_support)
+# best_tags = perform_fpgrowth(sim_start_date, sim_end_date, sim_country, sim_engagement, sim_min_support)
