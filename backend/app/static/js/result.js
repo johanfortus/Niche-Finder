@@ -22,8 +22,17 @@ function resultPage(scatterData) {
         clusterTabOne.innerHTML = '';
         clusterTabTwo.innerHTML = '';
         clusterTabThree.innerHTML = '';
+        clusterTabSlider.classList = '';
         scatterPlot.innerHTML = '';
         networkGraph.innerHTML = '';
+
+        if(!clusterTabTwo.classList.contains('active')) {
+            clusterTabOne.classList.remove('active');
+            clusterTabThree.classList.remove('active');
+            clusterTabTwo.classList.add('active');
+            clusterTabSlider.classList.add('cluster-tab-slider-default');
+        }
+
     }
 
     // Display loading screen
@@ -341,7 +350,9 @@ function createScatterPlot(scatterData){
 clusterTabOne.addEventListener('click', (e) => {
     e.preventDefault();
 
-    clusterTabSlider.className = "";
+    if(!clusterTabOne.classList.contains('active')) {
+        clusterTabSlider.className = "";
+    }
 
     // two -> one
     if(clusterTabTwo.classList.contains('active')) {
@@ -364,7 +375,9 @@ clusterTabOne.addEventListener('click', (e) => {
 clusterTabTwo.addEventListener('click', (e) => {
     e.preventDefault();
     
-    clusterTabSlider.className = "";
+    if(!clusterTabTwo.classList.contains('active')) {
+        clusterTabSlider.className = "";
+    }
 
     // one -> two
     if(clusterTabOne.classList.contains('active')) {
@@ -387,7 +400,9 @@ clusterTabTwo.addEventListener('click', (e) => {
 clusterTabThree.addEventListener('click', (e) => {
     e.preventDefault();
     
-    clusterTabSlider.className = "";
+    if(!clusterTabThree.classList.contains('active')) {
+        clusterTabSlider.className = "";
+    }
 
     // one -> three
     if(clusterTabOne.classList.contains('active')) {
