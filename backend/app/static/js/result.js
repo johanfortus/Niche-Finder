@@ -14,50 +14,75 @@ let networkGraph = document.querySelector('#network-graph')
 let x;
 let y;
 
-function resultPage(scatterData) {
-    // If it's the user's second time submitting form, add invisible class to previous results
-    if(resultSection[1] === undefined) {
-        resultSection.classList.add('tag-section-invisible');
-        resultHeader.innerHTML = '';
-        clusterTabOne.innerHTML = '';
-        clusterTabTwo.innerHTML = '';
-        clusterTabThree.innerHTML = '';
-        clusterTabSlider.classList = '';
-        scatterPlot.innerHTML = '';
-        networkGraph.innerHTML = '';
-
-        if(!clusterTabTwo.classList.contains('active')) {
-            clusterTabOne.classList.remove('active');
-            clusterTabThree.classList.remove('active');
-            clusterTabTwo.classList.add('active');
-            clusterTabSlider.classList.add('cluster-tab-slider-default');
-        }
-
-    }
-
+function displayLoadingScreen(){
     // Display loading screen
     loadingContainer.removeAttribute('class', 'tag-section-invisible');
     loadingSection.classList.toggle('loading');
     loadingSection.scrollIntoView();
+}
+
+function clearResults() {
+    resultSection.classList.add('tag-section-invisible');
+    resultHeader.innerHTML = '';
+    clusterTabOne.innerHTML = '';
+    clusterTabTwo.innerHTML = '';
+    clusterTabThree.innerHTML = '';
+    clusterTabSlider.classList = '';
+    scatterPlot.innerHTML = '';
+    networkGraph.innerHTML = '';
+
+    if(!clusterTabTwo.classList.contains('active')) {
+        clusterTabOne.classList.remove('active');
+        clusterTabThree.classList.remove('active');
+        clusterTabTwo.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-default');
+    }
+}
+
+function resultPage(scatterData) {
+    // If it's the user's second time submitting form, add invisible class to previous results
+    // if(resultSection[1] === undefined) {
+    //     resultSection.classList.add('tag-section-invisible');
+    //     resultHeader.innerHTML = '';
+    //     clusterTabOne.innerHTML = '';
+    //     clusterTabTwo.innerHTML = '';
+    //     clusterTabThree.innerHTML = '';
+    //     clusterTabSlider.classList = '';
+    //     scatterPlot.innerHTML = '';
+    //     networkGraph.innerHTML = '';
+    
+    //     if(!clusterTabTwo.classList.contains('active')) {
+    //         clusterTabOne.classList.remove('active');
+    //         clusterTabThree.classList.remove('active');
+    //         clusterTabTwo.classList.add('active');
+    //         clusterTabSlider.classList.add('cluster-tab-slider-default');
+    //     }
+    // }
+
+    // Display loading screen
+    // loadingContainer.removeAttribute('class', 'tag-section-invisible');
+    // loadingSection.classList.toggle('loading');
+    // loadingSection.scrollIntoView();
 
     // Display results after two seconds
-    let timer = setTimeout(() => {
-        loadingContainer.classList.add('tag-section-invisible');
-        loadingSection.classList.toggle('loading');
+    loadingContainer.classList.add('tag-section-invisible');
+    loadingSection.classList.toggle('loading');
 
-        resultSection.classList.remove('tag-section-invisible');
-        resultHeader.innerHTML = 'Result';
+    resultSection.classList.remove('tag-section-invisible');
+    resultHeader.innerHTML = 'Result';
 
-        if (scatterData['best_tags']) {
-            createNetworkGraph(scatterData['best_tags']);
-        }
-        else {
-            clusterTabOne.innerHTML = 'Views vs Comments';
-            clusterTabTwo.innerHTML = 'Likes vs Views';
-            clusterTabThree.innerHTML = 'Views vs Engagement';
-            createScatterPlot(scatterData);
-        }
-    }, 2000);
+    if (scatterData['best_tags']) {
+        createNetworkGraph(scatterData['best_tags']);
+    }
+    else {
+        clusterTabOne.innerHTML = 'Views vs Comments';
+        clusterTabTwo.innerHTML = 'Likes vs Views';
+        clusterTabThree.innerHTML = 'Views vs Engagement';
+        createScatterPlot(scatterData);
+    }
+    // let timer = setTimeout(() => {
+
+    // }, 2000);
 }
 
 

@@ -6,10 +6,10 @@ import os
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 
-path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
-csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
-
-df = pd.read_csv(csv_file_path)
+# path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
+# csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
+#
+# df = pd.read_csv(csv_file_path)
 
 def perform_kmeans(start_date, end_date, country, engagement):
     print('PERFORMING K-MEANS')
@@ -21,10 +21,10 @@ def perform_kmeans(start_date, end_date, country, engagement):
     print(f'Engagement: {engagement}')
     print()
 
-    # path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
-    # csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
-    #
-    # df = pd.read_csv(csv_file_path)
+    path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
+    csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
+
+    df = pd.read_csv(csv_file_path)
 
     # Filter out data based on user's search attribute input
     df_filtered = df[(df['publish_date'] >= start_date) & (df['publish_date'] <= end_date) & (df['country'] == country)]

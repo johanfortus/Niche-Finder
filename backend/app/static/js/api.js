@@ -13,6 +13,12 @@ let globalScatterData = null;
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    // If it's the user's second time submitting form, add invisible class to previous results
+    if(resultSection[1] === undefined) {
+        clearResults();
+    }
+
+    displayLoadingScreen();
 
     if(tabOne.classList[1] === 'active') {
         searchType = 'k-means';
