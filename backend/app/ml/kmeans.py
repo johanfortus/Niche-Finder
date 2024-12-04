@@ -52,11 +52,11 @@ def perform_kmeans(start_date, end_date, country, engagement):
 
     # Perform K-Means
     kmeans = KMeans(n_clusters = 3)
-    kmeans.fit(df_filtered[['view_count_T', 'like_count_T', 'comment_count_T', 'engagement_rate_T']])
+    kmeans.fit(df_filtered[['view_count_T', 'like_count_T']])
     df_filtered['kmeans_3'] = kmeans.labels_
 
     scatter_data = df_filtered[['title', 'channel_name', 'thumbnail_url', 'video_id', 'channel_id', 'view_count', 'like_count', 'comment_count', 'view_count_T', 'like_count_T', 'comment_count_T', 'engagement_rate_T', 'kmeans_3']].to_dict(orient='records')
-    # print(f'Scatter Data: {scatter_data}')
+    print(f'Scatter Data: {scatter_data}')
     return scatter_data
     # Plot result
     # plt.scatter(x = df_filtered['view_count_T'], y = df_filtered['like_count_T'], c = df_filtered['kmeans_3'])
