@@ -27,63 +27,25 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support=0.00
         print(f"Dataset file '{csv_file_path}' not found.")
         return None
 
-    # print the columns to verify
-    print("Columns in DataFrame:", df.columns.tolist())
+    df_filtered = df[(df['publish_date'] >= start_date) & (df['publish_date'] <= end_date) & (df['country'] == country)]
+    df_filtered = df_filtered.copy()
+    df_filtered['engagement_rate'] = ((df_filtered['like_count'] + df_filtered['comment_count']) / df_filtered['view_count']) * 100
 
-    # country column check
-    if 'country' not in df.columns:
-        print("The dataset does not contain a 'country' column.")
-        return None
+    engagement = calc_engagement_rate(engagement)
+    print(f'Engagement: {engagement}')
 
-    # Check for missing values in the country column
-    if df['country'].isna().all():
-        print("The country column is completely empty. Please check the dataset.")
-        return None
+    if engagement == 'High':
+        df_filtered = df_filtered[df_filtered['engagement_rate'] >= 7]
+    elif engagement == 'Moderate':
+        df_filtered = df_filtered[(df_filtered['engagement_rate'] >= 3) & (df_filtered['engagement_rate'] < 7)]
+    elif engagement == 'Low':
+        df_filtered = df_filtered[df_filtered['engagement_rate'] < 3]
 
-    # Filter by country
-    df = df[df['country'] == country]
-    if df.empty:
-        print(f"No data available for the country: {country}")
-        return None
-
-    # date and time conversion
-    if 'publish_date' in df.columns:
-        # Use flexible date parsing to handle different formats
-        df['publish_date'] = pd.to_datetime(df['publish_date'], errors='coerce')
-        date_column = 'publish_date'
-    else:
-        print("No suitable date column ('publish_date') found in the dataset.")
-        return None
-
-    # filters invalid dates
-    df = df.dropna(subset=[date_column])
-
-    # Filter by date range
-    mask = (df[date_column] >= start_date) & (df[date_column] <= end_date)
-    df = df.loc[mask]
-    if df.empty:
-        print(f"No data available in the date range: {start_date} to {end_date}")
-        return None
-
-    # Debug: Print the range of dates available in the dataset
-    print("Available publish date range:", df[date_column].min(), "to", df[date_column].max())
-
-    # Debug: Print unique country codes in the dataset
-    print("Unique country codes in dataset:", df['country'].unique())
-
-    # engagement rate calculation
-    df['engagement_rate'] = ((df['like_count'] + df['comment_count']) / df['view_count']) * 100
-    df['engagement_rate'] = df['engagement_rate'].replace([float('inf'), -float('inf')], 0).fillna(0)
-
-    # filter based on engagement level
-    if engagement >= 67:
-        df_filtered = df[df['engagement_rate'] > 7]
-    elif 33 <= engagement < 67:
-        df_filtered = df[(df['engagement_rate'] >= 3) & (df['engagement_rate'] <= 6)]
-    elif 0 <= engagement < 33:
-        df_filtered = df[df['engagement_rate'] < 3]
-    else:
-        df_filtered = df.copy()
+    # Clean up dataframe
+    df_filtered = df_filtered.copy()
+    df_filtered.dropna(subset=['view_count', 'like_count', 'comment_count'], inplace=True)
+    df_filtered.drop_duplicates(subset="title", keep="first", inplace=True)
+    print(df_filtered)
 
     if df_filtered.empty:
         print("No data found for the given engagement level.")
@@ -138,7 +100,7 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support=0.00
     df_tags = df_tags.astype(bool)
 
     # FP-Growth with max_len to limit the size of itemsets
-    frequent_itemsets = fpgrowth(df_tags, min_support=min_support, use_colnames=True, max_len=3)
+    frequent_itemsets = fpgrowth(df_tags, min_support=0.001, use_colnames=True, max_len=3)
 
     if frequent_itemsets.empty:
         print("No frequent itemsets found with the given minimum support. Consider lowering the min_support value.")
@@ -166,16 +128,43 @@ def perform_fpgrowth(start_date, end_date, country, engagement, min_support=0.00
     # print rules
     print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
 
+    results = []
+    for row in rules.iterrows():
+        results.append({
+            'antecedents': list(row['antecedents']),
+            'consequents': list(row['consequents']),
+            'support': row['support'],
+            'confidence': row['confidence'],
+            'lift': row['lift'],
+        })
+
     # find the tags with the best engagement
     best_tags = set()
     for antecedents in rules['antecedents']:
         best_tags.update(antecedents)
 
     print("Tags that produce the best results for engagement:")
-    print(best_tags)
+    best_tags = list(set(tag for antecedents in rules['antecedents'] for tag in antecedents))
 
-    return best_tags
+    return {
+        'status': 'success',
+        'frequent_itemsets': results,
+        'best_tags': best_tags
+    }
 
+
+
+def calc_engagement_rate(engagement):
+    # High Engagement(above 7 %): 67 - 100
+    # Medium Engagement(between 3 % and 6 %): 33 - 66
+    # Low Engagement(between 0 % and 3 %): 0 - 32
+    engagement = int(engagement)
+    if engagement >= 67:
+        return 'High'
+    elif engagement <= 66 and engagement >= 33:
+        return 'Moderate'
+    elif engagement <= 32:
+        return 'Low'
 # simulated input data for testing
 simulated_data = {
     'searchType': 'fpgrowth',
@@ -192,4 +181,5 @@ sim_engagement = simulated_data['engagement']
 sim_min_support = simulated_data['min_support']
 
 # FP-Growth call for testing
-# best_tags = perform_fpgrowth(sim_start_date, sim_end_date, sim_country, sim_engagement, sim_min_support)
+best_tags = perform_fpgrowth(sim_start_date, sim_end_date, sim_country, sim_engagement, sim_min_support)
+

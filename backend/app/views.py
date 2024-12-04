@@ -19,7 +19,7 @@ def result_page():
     start_date: str = data['dateRange']['start']
     end_date: str = data['dateRange']['end']
     country: str = COUNTRIES_MAP[data['country']]
-    engagement: str = data['engagement']
+    engagement: int = int(data['engagement'])
     tags: list = data['tags']
 
     result_data = {}
