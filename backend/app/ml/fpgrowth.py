@@ -155,4 +155,4 @@ sim_engagement = simulated_data['engagement']
 sim_min_support = simulated_data['min_support']
 
 # FP-Growth call for testing
-best_tags = perform_fpgrowth(sim_start_date, sim_end_date, sim_country, sim_engagement, sim_min_support)
+# best_tags = perform_fpgrowth(sim_start_date, sim_end_date, sim_country, sim_engagement, sim_min_support)

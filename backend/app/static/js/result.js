@@ -15,7 +15,6 @@ let x;
 let y;
 
 function resultPage(scatterData) {
-
     // If it's the user's second time submitting form, add invisible class to previous results
     if(resultSection[1] === undefined) {
         resultSection.classList.add('tag-section-invisible');
@@ -52,6 +51,8 @@ function resultPage(scatterData) {
     }, 2000);
 }
 
+
+// Move dots to new location on new active cluster tab
 function updateDotLocation(scatterData) {
     let xLabel = '';
     let yLabel = '';
@@ -92,8 +93,44 @@ function updateDotLocation(scatterData) {
         .duration(1000)
         .attr('cx', d => x(xAccessor(d)))
         .attr('cy', d => y(yAccessor(d)))
-
+        .on('end', function() {
+            newLocationFloatingAnimation(d3.select(this));
+        });
 }
+
+// dots floating and slowly moving function
+function floatingAnimation(selection) {
+    selection
+        .transition()
+        .duration(2000)
+        .ease(d3.easeSinInOut)
+        .attr('cx', d => x(d.view_count_T) + (Math.random() - 0.5) * 10)
+        .attr('cy', d => y(d.like_count_T) + (Math.random() - 0.5) * 10)
+        .on('end', function() {
+            floatingAnimation(d3.select(this));
+        });
+}
+
+// apply floating animation when dots move to new location
+function newLocationFloatingAnimation(selection){
+    function floating() {
+        selection
+            .transition()
+            .duration(2000)
+            .ease(d3.easeSinInOut)
+            .attr('cx', function() {
+                const currentX = d3.select(this).attr('cx');
+                return parseInt(currentX) + (Math.random() - 0.5) * 10;
+            })
+            .attr('cy', function() {
+                const currentY = d3.select(this).attr('cy');
+                return parseInt(currentY) + (Math.random() - 0.5) * 10;
+            })
+            .on('end', floating);
+    }
+    floating();
+}
+
 
 // Used Scatter Plot Template - https://d3-graph-gallery.com/graph/custom_theme.html
 function createScatterPlot(scatterData){
@@ -296,18 +333,6 @@ function createScatterPlot(scatterData){
         .on('end', function() {
             floatingAnimation(d3.select(this));
         });
-    
-    function floatingAnimation(selection) {
-        selection
-            .transition()
-            .duration(2000)
-            .ease(d3.easeSinInOut)
-            .attr('cx', d => x(d.view_count_T) + (Math.random() - 0.5) * 10)
-            .attr('cy', d => y(d.like_count_T) + (Math.random() - 0.5) * 10)
-            .on('end', function() {
-                floatingAnimation(d3.select(this));
-            });
-    }
 }
 
 
