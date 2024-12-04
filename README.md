@@ -43,4 +43,4 @@ Open http://127.0.0.1:5000/ to view project in the browser.
 
 ## Demonstration
 
-<img src="" /> 
+<img src="https://github.com/johanfortus/Niche-Finder/blob/main/Demonstration.gif" /> 
