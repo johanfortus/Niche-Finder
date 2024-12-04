@@ -22,10 +22,10 @@ def result_page():
     engagement: str = data['engagement']
     tags: list = data['tags']
 
-    scatter_data = {}
+    result_data = {}
     if search_type == 'k-means':
-        scatter_data = kmeans.perform_kmeans(start_date, end_date, country, engagement)
+        result_data = kmeans.perform_kmeans(start_date, end_date, country, engagement)
     elif search_type == 'apriori':
-        apriori_algorithm.perform_apriori(start_date, end_date, country, engagement, tags)
+        result_data = apriori_algorithm.perform_apriori(start_date, end_date, country, engagement, tags)
 
-    return jsonify(scatter_data)
+    return jsonify(result_data)

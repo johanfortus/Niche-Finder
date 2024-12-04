@@ -1,89 +1,76 @@
 import pandas as pd
 from mlxtend.frequent_patterns import apriori, association_rules
+import kagglehub
+import os
 
-def perform_apriori(csv_file_path, start_date, end_date, country, min_support):
+def perform_apriori(start_date, end_date, country, engagement, tags, min_support=0.1):
     print('PERFORMING APRIORI')
     print('------------------')
+    print('User Input:')
+    print(f'Start Date: {start_date}')
+    print(f'End Date: {end_date}')
+    print(f'Country: {country}')
+    print(f'Engagement: {engagement}')
+    print(f'Tags: {tags}')
+    print()
 
-    # load dataset
-    try:
-        df = pd.read_csv(csv_file_path, encoding='utf-8')
-    except FileNotFoundError:
-        print(f"Dataset file '{csv_file_path}' not found.")
-        return None
+    path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
+    csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
 
-    # print the columns to verify
-    print("Columns in DataFrame:", df.columns.tolist())
+    df = pd.read_csv(csv_file_path)
 
-    # country column check
-    if 'country' not in df.columns:
-        print("The dataset does not contain a 'country' column.")
-        return None
 
-    # date and time conversion
-    if 'publish_date' in df.columns:
-        # Adjust the date format as per your data
-        # For example, if 'publish_date' is in 'YYYY-MM-DD' format
-        df['publish_date'] = pd.to_datetime(df['publish_date'], format='%Y-%m-%d', errors='coerce')
-        date_column = 'publish_date'
-    else:
-        print("No suitable date column ('publish_date') found in the dataset.")
-        return None
-
-    # filters invalid dates
-    df = df.dropna(subset=[date_column])
-
-    # filters rest of data
-    mask = (df[date_column] >= pd.to_datetime(start_date)) & \
-           (df[date_column] <= pd.to_datetime(end_date)) & \
-           (df['country'].str.lower() == country.lower())
-    df_filtered = df.loc[mask].copy()
-
-    if df_filtered.empty:
-        print("No data found for the given date range and country.")
-        return None
-
-    # engagement rate calculation
+    # Filter out data based on user's search attribute input
+    df_filtered = df[(df['publish_date'] >= start_date) & (df['publish_date'] <= end_date) & (df['country'] == country)]
+    df_filtered = df_filtered.copy()
     df_filtered['engagement_rate'] = ((df_filtered['like_count'] + df_filtered['comment_count']) / df_filtered['view_count']) * 100
-    df_filtered['engagement_rate'] = df_filtered['engagement_rate'].replace([float('inf'), -float('inf')], 0)
-    df_filtered['engagement_rate'] = df_filtered['engagement_rate'].fillna(0)
+    df_filtered['video_tags'].fillna('', inplace=True)
 
-    # categorizingh basedo on engagement
-    def categorize_engagement(rate):
-        if rate >= 5:
-            return 'High'
-        elif 2 <= rate < 5:
-            return 'Moderate'
-        else:
-            return 'Low'
+    engagement = calc_engagement_rate(engagement)
+    print(f'Engagement: {engagement}')
 
-    df_filtered['engagement_level'] = df_filtered['engagement_rate'].apply(categorize_engagement)
+    if engagement == 'High':
+        df_filtered = df_filtered[df_filtered['engagement_rate'] >= 7]
+    elif engagement == 'Moderate':
+        df_filtered = df_filtered[(df_filtered['engagement_rate'] >= 3) & (df_filtered['engagement_rate'] < 7)]
+    elif engagement == 'Low':
+        df_filtered = df_filtered[df_filtered['engagement_rate'] < 3]
 
-    # high engagement only
-    df_high_engagement = df_filtered[df_filtered['engagement_level'] == 'High'].copy()
-
-    if df_high_engagement.empty:
-        print("No high-engagement videos found.")
-        return None
+    # Clean up dataframe
+    df_filtered = df_filtered.copy()
+    df_filtered.dropna(subset=['view_count', 'like_count', 'comment_count'], inplace=True)
+    df_filtered.drop_duplicates(subset="title", keep="first", inplace=True)
+    print(df_filtered)
 
     # tag prep for apriori
-    df_high_engagement['tag_list'] = df_high_engagement['video_tags'].apply(
-        lambda x: x.replace('"', '').split('|'))
+    df_filtered['tag_list'] = df_filtered['video_tags'].apply(
+        lambda x: x.replace('"', '').split('|') if isinstance(x, str) else []
+    )
+
+    # Filter videos based on user's tags
+    if tags:
+        df_filtered = df_filtered[
+            df_filtered['tag_list'].apply(lambda video_tags: any(user_tag.lower() in [tag.lower() for tag in video_tags] for user_tag in tags))
+        ]
+        print(f'number of videos after tag filter: {len(df_filtered)}')
+        if df_filtered.empty:
+            print("No videos with specified tags")
+            return None
 
     # list of *unique* tags
     all_tags = set()
-    for tags in df_high_engagement['tag_list']:
+    for tags in df_filtered['tag_list']:
         all_tags.update([tag.strip().lower() for tag in tags])
 
     # one-hot encoding
     for tag in all_tags:
-        df_high_engagement[tag] = df_high_engagement['tag_list'].apply(
+        df_filtered[tag] = df_filtered['tag_list'].apply(
             lambda x: 1 if tag in [t.strip().lower() for t in x] else 0
         )
 
     # dataframe prep
     tag_columns = list(all_tags)
-    df_tags = df_high_engagement[tag_columns]
+    df_tags = df_filtered[tag_columns]
 
     # convert to bool
     df_tags = df_tags.astype(bool)
@@ -110,10 +97,22 @@ def perform_apriori(csv_file_path, start_date, end_date, country, min_support):
     # print rules
     print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
 
-    return rules
+    return rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']].to_dict(orient='records')
+
+def calc_engagement_rate(engagement):
+    # High Engagement(above 7 %): 67 - 100
+    # Medium Engagement(between 3 % and 6 %): 33 - 66
+    # Low Engagement(between 0 % and 3 %): 0 - 32
+    engagement = int(engagement)
+    if engagement >= 67:
+        return 'High'
+    elif engagement <= 66 and engagement >= 33:
+        return 'Moderate'
+    elif engagement <= 32:
+        return 'Low'
 
 # csv path
-csv_file_path = '/Users/vincentmilland/PycharmProjects/PythonProject6/filtered_trending_yt_videos.csv'  # Replace with your actual CSV file path
+# csv_file_path = '/Users/vincentmilland/PycharmProjects/PythonProject6/filtered_trending_yt_videos.csv'  # Replace with your actual CSV file path
 
 # simulated input data for testing
 simulated_data = {
@@ -129,4 +128,4 @@ sim_country = simulated_data['country']
 sim_min_support = simulated_data['min_support']
 
 # apriori call for testing
-rules = perform_apriori(csv_file_path, sim_start_date, sim_end_date, sim_country, sim_min_support)
+# rules = perform_apriori(csv_file_path, sim_start_date, sim_end_date, sim_country, sim_min_support)
