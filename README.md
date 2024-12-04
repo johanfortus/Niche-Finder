@@ -32,7 +32,7 @@ Open http://127.0.0.1:5000/ to view project in the browser.
 
 ## Built With
 - [<img src="https://img.shields.io/badge/-Python-blue?style=for-the-badge&logo=python&logoColor=FFFF2E" />](https://www.python.org)
-- [<img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />](https://flask.palletsprojects.com/)
+- [<img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />](https://flask.palletsprojects.com/en/2.2.x/)
 - [<img src="https://img.shields.io/badge/scikit_learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" />](https://scikit-learn.org/)
 - [<img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white" />](https://pandas.pydata.org/)
 - [<img src="https://img.shields.io/badge/Numpy-777BB4?style=for-the-badge&logo=numpy&logoColor=white" />](https://numpy.org/)
