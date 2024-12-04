@@ -7,9 +7,11 @@ let resultHeader = document.querySelector('.result-header');
 let clusterTabOne = document.querySelector('.cluster-tab-one');
 let clusterTabTwo = document.querySelector('.cluster-tab-two');
 let clusterTabThree = document.querySelector('.cluster-tab-three');
-let clusterTabSlider = document.querySelector('.cluster-tab-slider');
+let clusterTabSlider = document.querySelector('#cluster-tab-slider');
 
 let scatterPlot = document.querySelector('#scatter-plot');
+let x;
+let y;
 
 function resultPage(scatterData) {
 
@@ -42,6 +44,48 @@ function resultPage(scatterData) {
 
         createScatterPlot(scatterData);
     }, 2000);
+}
+
+function updateDotLocation(scatterData) {
+    let xLabel = '';
+    let yLabel = '';
+    let xAccessor = d => d.view_count_T;
+    let yAccessor = d => d.like_count_T;
+
+    // Comments vs Views tab active
+    if(clusterTabOne.classList.contains('active')) {
+        xLabel = 'View Count (Scaled)';
+        yLabel = 'Comment Count (Scaled)';
+        xAccessor = d => d.view_count_T;
+        yAccessor = d => d.comment_count_T;
+    }
+
+    // Likes vs Views tab active
+    else if(clusterTabTwo.classList.contains('active')) {
+        xLabel = 'View Count (Scaled)';
+        yLabel = 'Like Count (Scaled)';
+        xAccessor = d => d.view_count_T;
+        yAccessor = d => d.like_count_T;
+    }
+
+    // Views vs Engagement tab active
+    else if(clusterTabThree.classList.contains('active')) {
+        xLabel = 'Engagement Rate (Scaled)';
+        yLabel = 'View Count (Scaled)';
+        // xAccessor = d => d.engagement_rate_T;
+        // yAccessor = d => d.view_count_T;
+        xAccessor = d => d.view_count_T;
+        yAccessor = d => d.engagement_rate_T;
+    }
+
+    d3.select('#scatter-plot').select('.x-axis-label').text(xLabel);
+    d3.select('#scatter-plot').select('.y-axis-label').text(yLabel);
+
+    d3.selectAll('circle')
+        .transition()
+        .duration(1000)
+        .attr('cx', d => x(xAccessor(d)))
+        .attr('cy', d => y(yAccessor(d)))
 
 }
 
@@ -69,11 +113,11 @@ function createScatterPlot(scatterData){
         .attr("width", width)
         .style("fill", "#FFFFFF")
 
-    var x = d3.scaleLinear()
+    x = d3.scaleLinear()
         .domain(d3.extent(scatterData, d => d.view_count_T))
         .range([0, width]);
         
-    var y = d3.scaleLinear()
+    y = d3.scaleLinear()
         .domain(d3.extent(scatterData, d => d.like_count_T))
         .range([height, 0]);
 
@@ -99,6 +143,7 @@ function createScatterPlot(scatterData){
     // X axis label
     svg.append("text")
         .attr("text-anchor", "end")
+        .attr("class", "x-axis-label")
         .attr("x", width/2 + margin.left)
         .attr("y", height + margin.top + 20)
         .style("fill", "white")
@@ -107,6 +152,7 @@ function createScatterPlot(scatterData){
     // Y axis label
     svg.append("text")
         .attr("text-anchor", "end")
+        .attr("class", "y-axis-label")
         .attr("transform", "rotate(-90)")
         .attr("y", -margin.left + 20)
         .attr("x", -margin.top - height/2 + 20)
@@ -169,7 +215,7 @@ function createScatterPlot(scatterData){
         })
 
         // Mouse move events
-        .on('mousemove', function() {
+        .on('mousemove', function(e) {
             if(activeDot !== this) {
                 d3.select('.tooltip')
                     .style('top', (e.pageY - 10) + 'px')
@@ -257,3 +303,74 @@ function createScatterPlot(scatterData){
             });
     }
 }
+
+
+// Cluster Tab Animations
+// TAB ONE CLICKED
+clusterTabOne.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    clusterTabSlider.className = "";
+
+    // two -> one
+    if(clusterTabTwo.classList.contains('active')) {
+        clusterTabTwo.classList.remove('active');
+        clusterTabOne.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-two-to-one');
+        updateDotLocation(globalScatterData)
+    }
+
+    // three -> one
+    if(clusterTabThree.classList.contains('active')) {
+        clusterTabThree.classList.remove('active');
+        clusterTabOne.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-three-to-one');
+        updateDotLocation(globalScatterData)
+    }
+})
+
+// TAB TWO CLICKED
+clusterTabTwo.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    clusterTabSlider.className = "";
+
+    // one -> two
+    if(clusterTabOne.classList.contains('active')) {
+        clusterTabOne.classList.remove('active');
+        clusterTabTwo.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-one-to-two');
+        updateDotLocation(globalScatterData)
+    }
+
+    // three -> two
+    if(clusterTabThree.classList.contains('active')) {
+        clusterTabThree.classList.remove('active');
+        clusterTabTwo.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-three-to-two');
+        updateDotLocation(globalScatterData)
+    }
+})
+
+// TAB THREE CLICKED
+clusterTabThree.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    clusterTabSlider.className = "";
+
+    // one -> three
+    if(clusterTabOne.classList.contains('active')) {
+        clusterTabOne.classList.remove('active');
+        clusterTabThree.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-one-to-three');
+        updateDotLocation(globalScatterData)
+    }
+
+    // two -> three
+    if(clusterTabTwo.classList.contains('active')) {
+        clusterTabTwo.classList.remove('active');
+        clusterTabThree.classList.add('active');
+        clusterTabSlider.classList.add('cluster-tab-slider-two-to-three');
+        updateDotLocation(globalScatterData)
+    }
+})

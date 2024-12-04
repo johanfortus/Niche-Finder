@@ -9,6 +9,8 @@ let countryInput = document.querySelector('.country');
 let engagementInput = document.querySelector('.engagement-range');
 let tags = [];
 
+let globalScatterData = null;
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -43,6 +45,7 @@ form.addEventListener('submit', async (e) => {
         );
         console.log(res.data);
         const scatterData = res.data;
+        globalScatterData = scatterData;
         resultPage(scatterData);
     }
     catch(error) {

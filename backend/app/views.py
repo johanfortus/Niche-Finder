@@ -1,5 +1,5 @@
 from flask import render_template, redirect, request, Blueprint, jsonify
-from .ml import kmeans, apriori
+from .ml import kmeans, apriori_algorithm
 from .constants import *
 
 views = Blueprint('views', __name__)
@@ -26,6 +26,6 @@ def result_page():
     if search_type == 'k-means':
         scatter_data = kmeans.perform_kmeans(start_date, end_date, country, engagement)
     elif search_type == 'apriori':
-        apriori.perform_apriori(start_date, end_date, country, engagement, tags)
+        apriori_algorithm.perform_apriori(start_date, end_date, country, engagement, tags)
 
     return jsonify(scatter_data)

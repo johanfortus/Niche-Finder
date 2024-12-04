@@ -47,14 +47,15 @@ def perform_kmeans(start_date, end_date, country, engagement):
     df_filtered['view_count_log'] = np.log1p(df_filtered['view_count'])
     df_filtered['like_count_log'] = np.log1p(df_filtered['like_count'])
     df_filtered['comment_count_log'] = np.log1p(df_filtered['comment_count'])
-    df_filtered[['view_count_T', 'like_count_T', 'comment_count_T']] = scaler.fit_transform(df_filtered[['view_count_log', 'like_count_log', 'comment_count_log']])
+    df_filtered['engagement_rate_log'] = np.log1p(df_filtered['engagement_rate'])
+    df_filtered[['view_count_T', 'like_count_T', 'comment_count_T', 'engagement_rate_T']] = scaler.fit_transform(df_filtered[['view_count_log', 'like_count_log', 'comment_count_log', 'engagement_rate_log']])
 
     # Perform K-Means
     kmeans = KMeans(n_clusters = 3)
     kmeans.fit(df_filtered[['view_count_T', 'like_count_T']])
     df_filtered['kmeans_3'] = kmeans.labels_
 
-    scatter_data = df_filtered[['title', 'channel_name', 'thumbnail_url', 'video_id', 'channel_id', 'view_count', 'like_count', 'comment_count', 'view_count_T', 'like_count_T', 'comment_count_T', 'kmeans_3']].to_dict(orient='records')
+    scatter_data = df_filtered[['title', 'channel_name', 'thumbnail_url', 'video_id', 'channel_id', 'view_count', 'like_count', 'comment_count', 'view_count_T', 'like_count_T', 'comment_count_T', 'engagement_rate_T', 'kmeans_3']].to_dict(orient='records')
     print(f'Scatter Data: {scatter_data}')
     return scatter_data
     # Plot result
