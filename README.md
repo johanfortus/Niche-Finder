@@ -19,15 +19,13 @@ Create and activate a Python virtual environment
 ```
 $ python -m venv venv
 $ source venv/bin/activate
-$ pip install -r requirements.txt
 ```
 Install dependencies
 ```
 (venv) $ pip install -r requirements.txt
 ```
-Navigate to backend directory and start server
+Start server
 ```
-(venv) $ cd backend
 (venv) $ flask run
 ```
 Open http://127.0.0.1:5000/ to view project in the browser.
