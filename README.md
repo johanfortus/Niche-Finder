@@ -10,9 +10,8 @@ This project utilizes Python, Flask, Pandas, and NumPy to process data from the 
 Niche Finder helps creators to make informed content decisions with an intuitive, data-focused approach.
 
 ## Setup
-Obtain a Kaggle API key at https://www.kaggle.com/docs/api to access Kaggle datasets
 
-Next, clone the repository to your local machine
+Clone the repository to your local machine
 ```
 $ git clone https://github.com/johanfortus/Niche-Finder/
 $ cd Niche-Finder
