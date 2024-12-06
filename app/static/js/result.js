@@ -5,6 +5,9 @@ let errorSection = document.querySelector('#error-screen');
 let errorContainer = document.querySelector('.error-container');
 let tryAgainBtn = document.querySelector('.try-again-btn');
 
+let fpgrowthSection = document.querySelector('#fpgrowth-screen'); //temporary
+let fpgrowthContainer = document.querySelector('.fpgrowth-container'); //temporary
+
 let resultSection = document.querySelector('.result-section');
 let resultHeader = document.querySelector('.result-header');
 
@@ -353,6 +356,9 @@ tryAgainBtn.addEventListener('click', () => {
     selectSearchSection.scrollIntoView();
 })
 
+document.querySelector('.fpgrowth-try-again-btn').addEventListener('click', () => {
+    selectSearchSection.scrollIntoView();
+})
 
 // Cluster Tab Animations
 // TAB ONE CLICKED

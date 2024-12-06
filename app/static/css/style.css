@@ -34,7 +34,7 @@ body {
     margin-bottom: 50px;
 }
 
-.loading, .error-screen {
+.loading, .error-screen, .fpgrowth-screen {
     display: flex;
     justify-content: center;
     align-items: center;
