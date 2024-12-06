@@ -506,4 +506,5 @@ select {
     border: 1px solid #B91C1C;
     padding: 2px 10px;
     border-radius: 5px;
+    pointer-events: none;
 }
