@@ -3,13 +3,14 @@ Identifying high-performing niches and trends on YouTube to assist aspiring cont
 
 ## Summary
 
-When starting out on a platform like YouTube, it can be difficult for new content creators to decide what niche to focus on due to the vast competition.
+Starting a YouTube channel can be challenging for new creators due to the overwhelming competition. Niche Finder simplifies this process by using data-driven techniques to identify high-performing niches, trends, and tags.
 
-By identifying high-performing niches, creators can start their channel by making data-driven decisions on which successful topics are more likely to succeed.
+This project utilizes Python, Flask, Pandas, and NumPy to process data from the [Top Trending YouTube Videos Dataset](https://www.kaggle.com/datasets/asaniczka/trending-youtube-videos-113-countries/code). K-Means clustering and the FP-Growth algorithm are applied to analyze video groupings and discover frequent tag associations. Dynamic visualizations are created using D3.js to present trends interactively.
 
-Niche Finder is a tool that helps you discover successful topics, video groupings, trends, and tags.
+Niche Finder helps creators to make informed content decisions with an intuitive, data-focused approach.
 
 ## Setup
+
 Clone the repository to your local machine
 ```
 $ git clone https://github.com/johanfortus/Niche-Finder/
@@ -31,13 +32,13 @@ Start server
 Open http://127.0.0.1:5000/ to view project in the browser.
 
 ## Built With
-- <img src="https://img.shields.io/badge/-Python-blue?style=for-the-badge&logo=python&logoColor=FFFF2E" />
-- <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
-- <img src="https://img.shields.io/badge/scikit_learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" />
-- <img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white" />
-- <img src="https://img.shields.io/badge/Numpy-777BB4?style=for-the-badge&logo=numpy&logoColor=white" />
-- <img src="https://img.shields.io/badge/javascript-%23F7DF1E.svg?&style=for-the-badge&logo=javascript&logoColor=black" />
-- <img src="https://img.shields.io/badge/d3%20js-F9A03C?style=for-the-badge&logo=d3.js&logoColor=white" />
+- [<img src="https://img.shields.io/badge/-Python-blue?style=for-the-badge&logo=python&logoColor=FFFF2E" />](https://www.python.org)
+- [<img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />](https://flask.palletsprojects.com/en/2.2.x/)
+- [<img src="https://img.shields.io/badge/scikit_learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" />](https://scikit-learn.org/)
+- [<img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white" />](https://pandas.pydata.org/)
+- [<img src="https://img.shields.io/badge/Numpy-777BB4?style=for-the-badge&logo=numpy&logoColor=white" />](https://numpy.org/)
+- [<img src="https://img.shields.io/badge/javascript-%23F7DF1E.svg?&style=for-the-badge&logo=javascript&logoColor=black" />](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [<img src="https://img.shields.io/badge/d3%20js-F9A03C?style=for-the-badge&logo=d3.js&logoColor=white" />](https://d3js.org/)
 
 ## Demonstration
 
