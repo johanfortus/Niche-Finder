@@ -2,9 +2,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import kagglehub
+from kaggle.api.kaggle_api_extended import KaggleApi
 import os
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+
+path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
+csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
+df = pd.read_csv(csv_file_path)
 
 def perform_kmeans(start_date, end_date, country, engagement):
     print('PERFORMING K-MEANS')
@@ -16,9 +21,16 @@ def perform_kmeans(start_date, end_date, country, engagement):
     print(f'Engagement: {engagement}')
     print()
 
+    # Kaggle API
+    # api = KaggleApi()
+    # api.authenticate()
+    # path = './data'
+    # api.dataset_download_files('asaniczka/trending-youtube-videos-113-countries', path=path, unzip=True)
+    # csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
+    # df = pd.read_csv(csv_file_path)
+
     path = kagglehub.dataset_download("asaniczka/trending-youtube-videos-113-countries")
     csv_file_path = os.path.join(path, 'trending_yt_videos_113_countries.csv')
-
     df = pd.read_csv(csv_file_path)
 
     # Filter out data based on user's search attribute input
