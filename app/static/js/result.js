@@ -1,6 +1,10 @@
 let loadingSection = document.querySelector('#loading');
 let loadingContainer = document.querySelector('.loadingContainer');
 
+let errorSection = document.querySelector('#error-screen');
+let errorContainer = document.querySelector('.error-container');
+let tryAgainBtn = document.querySelector('.try-again-btn');
+
 let resultSection = document.querySelector('.result-section');
 let resultHeader = document.querySelector('.result-header');
 
@@ -343,6 +347,11 @@ function createScatterPlot(scatterData){
             floatingAnimation(d3.select(this));
         });
 }
+
+// Error Screen
+tryAgainBtn.addEventListener('click', () => {
+    selectSearchSection.scrollIntoView();
+})
 
 
 // Cluster Tab Animations

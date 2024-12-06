@@ -5,6 +5,7 @@ let algoInfoContainer = document.querySelector('.algorithm-info');
 let algoTitle = document.querySelector('.algorithm-title');
 let algoDesc = document.querySelector('.algorithm-desc');
 
+let selectSearchSection = document.querySelector('.select-search-section');
 let tabOne = document.querySelector('.tab-one');
 let tabTwo = document.querySelector('.tab-two');
 let tabSlider = document.querySelector('.tab-slider');

@@ -34,7 +34,7 @@ body {
     margin-bottom: 50px;
 }
 
-.loading {
+.loading, .error-screen {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,10 +57,25 @@ body {
         transform: rotate(360deg);
     }
 }
-.analyzing-text {
+.analyzing-text, .error-text {
     margin-top: 40px;
 }
 
+.error-container {
+    text-align: center;
+}
+.try-again-btn {
+    background-color: rgb(0, 128, 255);
+    color: white;
+    border: none;
+    padding: 2px 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.try-again-btn:hover {
+    cursor: pointer;
+    background-color: rgb(0, 78, 156);
+}
 
 /* .active {
     color: blue;

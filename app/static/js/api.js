@@ -26,6 +26,10 @@ form.addEventListener('submit', async (e) => {
     }
 
     displayLoadingScreen();
+    if(!errorContainer.classList.contains('tag-section-invisible')) {
+        errorContainer.classList.add('tag-section-invisible');
+        errorSection.classList.toggle('error-screen');
+    }
 
     if(tabOne.classList[1] === 'active') {
         searchType = 'k-means';
@@ -60,11 +64,25 @@ form.addEventListener('submit', async (e) => {
         console.log("tags:")
         console.log(res.data['best_tags']);
         console.log("-------------------")
+
         const scatterData = res.data;
         globalScatterData = scatterData;
-        resultPage(scatterData);
+        if(res.data['best_tags'] === undefined) {
+            resultPage(scatterData);
+        }
     }
     catch(error) {
         console.log(error);
+        
+        let timer = setTimeout(() => {
+
+            loadingContainer.classList.add('tag-section-invisible');
+            loadingSection.classList.toggle('loading');
+
+            errorContainer.classList.remove('tag-section-invisible');
+            errorSection.classList.toggle('error-screen');
+
+        }, 1000)
+
     }
 })
