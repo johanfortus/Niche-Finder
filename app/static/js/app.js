@@ -19,6 +19,7 @@ let tagHead = document.querySelector('.tag-header');
 let tagField = document.querySelector('.tag-field');
 
 let btnContainer = document.querySelector('.btn-container');
+let submitBtn = document.querySelector('.submit-btn');
 
 // When tab one (Video Grouping) is active, all exclusve tag-search elements will be be invisible
 tabOne.addEventListener('click', (e) => {
@@ -26,6 +27,7 @@ tabOne.addEventListener('click', (e) => {
     if(tabOne.classList[1] !== 'active') {
         tabOne.classList.toggle('active');
         tabTwo.classList.toggle('active');
+        resetFields();
 
         // Tab Slide Animation
         if (tabSlider.classList[1] !== 'tab-slider-default') {
@@ -70,9 +72,9 @@ tabOne.addEventListener('click', (e) => {
 tabTwo.addEventListener('click', (e) => {
     e.preventDefault();
     if (tabTwo.classList[1] !== 'active') {
-
         tabTwo.classList.toggle('active');
         tabOne.classList.toggle('active');
+        resetFields();
         
         if (tabSlider.classList[1] === 'tab-slider-default') {
             tabSlider.classList.remove('tab-slider-default');
@@ -157,3 +159,91 @@ tagContainer.addEventListener('click', (e) => {
         console.log(tags);
     }
 })
+
+
+// Handling Invalid User Inputs
+startDateInput.addEventListener('click', (e) => {
+    if(startDateInput.classList.contains('invalid-input')) {
+        startDateInput.classList.remove('invalid-input');
+        endDateInput.classList.remove('invalid-input');
+    }
+    if(submitBtn.classList.contains('invalid-btn')) {
+        submitBtn.classList.toggle('submit-btn');
+        submitBtn.classList.toggle('invalid-btn');
+        submitBtn.innerHTML = 'Submit';
+    }
+})
+endDateInput.addEventListener('click', (e) => {
+    if(endDateInput.classList.contains('invalid-input')) {
+        startDateInput.classList.remove('invalid-input');
+        endDateInput.classList.remove('invalid-input');
+    }
+    if(submitBtn.classList.contains('invalid-btn')) {
+        submitBtn.classList.toggle('submit-btn');
+        submitBtn.classList.toggle('invalid-btn');
+        submitBtn.innerHTML = 'Submit';
+    }
+})
+countryInput.addEventListener('click', (e) => {
+    if(countryInput.classList.contains('invalid-input')) {
+        countryInput.classList.remove('invalid-input');
+    }
+    if(submitBtn.classList.contains('invalid-btn')) {
+        submitBtn.classList.toggle('submit-btn');
+        submitBtn.classList.toggle('invalid-btn');
+        submitBtn.innerHTML = 'Submit';
+    }
+})
+function invalidInputHandling() {
+    let isInputValid = true;
+    if(startDateInput.value === '') {
+        invalidInputStyle(startDateInput);
+        isInputValid = false;
+    }
+    if(endDateInput.value === '') {
+        invalidInputStyle(endDateInput);
+        isInputValid = false;
+    }
+    if(startDateInput.value > endDateInput.value) {
+        invalidInputStyle(startDateInput);
+        invalidInputStyle(endDateInput);
+        isInputValid = false;
+    }
+    
+    if(countryInput.value === '') {
+        invalidInputStyle(countryInput);
+        isInputValid = false;
+    }
+    return isInputValid;
+}
+
+function invalidInputStyle(input) {
+    input.classList.add('invalid-input');
+}
+
+function toggleInvalidButton() {
+    if(submitBtn.classList.contains('submit-btn')) {
+        submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #B91C1C;"></i> Invalid Input';
+    }
+    else {
+        submitBtn.innerHTML = 'Submit';
+    }
+    submitBtn.classList.toggle('submit-btn');
+    submitBtn.classList.toggle('invalid-btn');
+}
+
+// Function to reset fields
+function resetFields() {
+    startDateInput.value = '';
+    startDateInput.classList.remove('invalid-input');
+    endDateInput.value = '';
+    endDateInput.classList.remove('invalid-input');
+    countryInput.value = '';
+    countryInput.classList.remove('invalid-input');
+    engagementInput.value = '';
+    if(submitBtn.classList.contains('invalid-btn')) {
+        submitBtn.innerHTML = 'Submit';
+        submitBtn.classList.toggle('submit-btn');
+        submitBtn.classList.toggle('invalid-btn');
+    }
+}

@@ -488,3 +488,22 @@ select {
     color: black;
     font-weight: bold;
 }
+
+.invalid-invisible {
+    display: none;
+}
+
+.invalid-input {
+    border: 1px solid #ff0000;
+    border-radius: 2px;
+}
+.invalid-left-row {
+    margin-top: 10px;
+}
+.invalid-btn {
+    background-color: #FEE2E2;
+    color: #B91C1C;
+    border: 1px solid #B91C1C;
+    padding: 2px 10px;
+    border-radius: 5px;
+}

@@ -13,6 +13,13 @@ let globalScatterData = null;
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    if(!invalidInputHandling()) {
+        toggleInvalidButton();
+        console.log('Invalid Input');
+        return;
+    }
+
     // If it's the user's second time submitting form, add invisible class to previous results
     if(resultSection[1] === undefined) {
         clearResults();
@@ -34,6 +41,7 @@ form.addEventListener('submit', async (e) => {
 
     try {
         // Send request to Flask
+        console.log('Sending Request');
         let res = await axios.post('/result', 
             {
                 searchType,
