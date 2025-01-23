@@ -148,7 +148,8 @@ function newLocationFloatingAnimation(selection){
 }
 
 
-// Used Scatter Plot Template - https://d3-graph-gallery.com/graph/custom_theme.html
+// Create Scatter Plot
+// Scatter Plot Template - https://d3-graph-gallery.com/graph/custom_theme.html
 function createScatterPlot(scatterData){
     console.log("CREATING SCATTER PLOT");
     console.log(scatterData);
