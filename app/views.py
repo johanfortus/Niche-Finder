@@ -14,7 +14,7 @@ def result_page():
     data = request.get_json()
     print(f'{data} \n')
 
-    search_type:str = data['searchType']
+    search_type: str = data['searchType']
 
     start_date: str = data['dateRange']['start']
     end_date: str = data['dateRange']['end']
